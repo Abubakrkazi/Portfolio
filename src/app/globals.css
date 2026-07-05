@@ -24,3 +24,26 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+body {
+  background: linear-gradient(
+      to bottom,
+      #081b29,
+      #0b1120,
+      #081b29
+  );
+  color: white;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #8245EC;
+  color: white;
+}
+
+.glass {
+  background: rgba(17, 24, 39, 0.65);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(130, 69, 236, 0.2);
+}
