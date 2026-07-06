@@ -1,35 +1,64 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { CalendarDays, ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
+
 import { AnimatedSection, Button, Container } from "./ui";
 
-const blogs = [
-  {
-    title: "Getting Started with Next.js",
-    category: "Next.js",
-    date: "July 2026",
-    description:
-      "Learn the fundamentals of Next.js App Router and build modern web applications.",
-  },
-  {
-    title: "Mastering TypeScript",
-    category: "TypeScript",
-    date: "June 2026",
-    description:
-      "Understand TypeScript from beginner to advanced with practical examples.",
-  },
-  {
-    title: "Prisma + PostgreSQL Guide",
-    category: "Backend",
-    date: "May 2026",
-    description:
-      "A complete guide to building scalable backend applications using Prisma ORM.",
-  },
-];
+interface MediumPost {
+  title: string;
+  link: string;
+  pubDate: string;
+  description: string;
+  thumbnail: string;
+}
 
 export default function Blogs() {
-  return (
+  const [posts, setPosts] = useState<MediumPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchBlogs() {
+      try {
+        const res = await fetch(
+          "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@kaziabubakr87"
+        );
+
+        const data = await res.json();
+
+        const blogs = data.items.map((item: any) => ({
+          title: item.title,
+          link: item.link,
+          pubDate: item.pubDate,
+          description: item.description
+            .replace(/<[^>]+>/g, "")
+            .slice(0, 140),
+
+          thumbnail:
+            item.thumbnail ||
+            "/images/blog-placeholder.jpg",
+        }));
+
+        setPosts(blogs);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchBlogs();
+  }, []);
+
+
+
+
+
+  
+    return (
     <section
       id="blogs"
       className="bg-[#081b29] py-28"
@@ -38,44 +67,95 @@ export default function Blogs() {
 
         <AnimatedSection>
 
-          {/* Heading */}
-
           <div className="text-center">
 
-            <p className="font-semibold uppercase tracking-[6px] text-[#8245EC]">
+            <p
+              className="
+              font-semibold
+              uppercase
+              tracking-[6px]
+              text-[#8245EC]
+            "
+            >
               Blogs
             </p>
 
-            <h2 className="mt-4 text-4xl font-black text-white md:text-5xl">
+            <h2
+              className="
+              mt-4
+              text-4xl
+              font-black
+              text-white
+              md:text-5xl
+            "
+            >
               Latest Articles
             </h2>
 
-            <p className="mx-auto mt-6 max-w-2xl leading-8 text-gray-400">
-              Sharing my knowledge, experience and thoughts about
-              web development, programming and modern technologies.
+            <p
+              className="
+              mx-auto
+              mt-6
+              max-w-2xl
+              leading-8
+              text-gray-400
+            "
+            >
+              Latest technical articles automatically
+              fetched from my Medium profile.
             </p>
 
           </div>
 
-          {/* Blog Grid */}
+                    {loading && (
 
-          <div className="mt-20 grid gap-8 lg:grid-cols-3">
+            <div
+              className="
+              mt-20
+              text-center
+              text-gray-400
+            "
+            >
+              Loading latest blogs...
+            </div>
 
-            {blogs.map((blog, index) => (
+          )}
 
-              <motion.div
-                key={blog.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.15,
-                }}
-                whileHover={{
-                  y: -10,
-                }}
-                className="
+                    {!loading && (
+
+            <div
+              className="
+              mt-20
+              grid
+              gap-8
+              md:grid-cols-2
+              xl:grid-cols-3
+            "
+            >
+
+
+
+                            {posts.map((post, index) => (
+
+                <motion.article
+                  key={post.link}
+                  initial={{
+                    opacity: 0,
+                    y: 40,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    delay: index * 0.12,
+                  }}
+                  viewport={{
+                    once: true,
+                  }}
+                  className="
+                  group
                   overflow-hidden
                   rounded-3xl
                   border
@@ -84,51 +164,93 @@ export default function Blogs() {
                   backdrop-blur-xl
                   transition-all
                   duration-300
+                  hover:-translate-y-3
                   hover:border-[#8245EC]
-                "
-              >
+                  hover:shadow-[0_0_40px_rgba(130,69,236,.35)]
+                  "
+                >
 
-                {/* Blog Image */}
+                  <div className="relative h-60 w-full overflow-hidden">
 
-                <div className="flex h-52 items-center justify-center bg-gradient-to-br from-[#8245EC]/30 to-cyan-500/20">
-
-                  <span className="text-xl font-bold text-white">
-                    Blog Cover
-                  </span>
-
-                </div>
-
-                {/* Content */}
-
-                <div className="p-8">
-
-                  <div className="flex items-center justify-between">
-
-                    <span className="rounded-full bg-[#8245EC]/20 px-4 py-1 text-sm text-[#c8a8ff]">
-                      {blog.category}
-                    </span>
-
-                    <span className="text-sm text-gray-400">
-                      {blog.date}
-                    </span>
+                    <Image
+                      src={post.thumbnail}
+                      alt={post.title}
+                      fill
+                      className="
+                      object-cover
+                      transition-transform
+                      duration-500
+                      group-hover:scale-110
+                      "
+                    />
 
                   </div>
 
-                  <h3 className="mt-6 text-2xl font-bold text-white">
-                    {blog.title}
-                  </h3>
+                  <div className="p-7">
 
-                  <p className="mt-5 leading-8 text-gray-400">
-                    {blog.description}
-                  </p>
+                    <div
+                      className="
+                      flex
+                      items-center
+                      gap-2
+                      text-sm
+                      text-[#8245EC]
+                      "
+                    >
+                      <CalendarDays size={16} />
 
-                  <div className="mt-8">
+                      {new Date(
+                        post.pubDate
+                      ).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </div>
 
-                    <Link href="/blogs">
+                    <h3
+                      className="
+                      mt-4
+                      line-clamp-2
+                      text-2xl
+                      font-bold
+                      text-white
+                      transition
+                      group-hover:text-[#8245EC]
+                      "
+                    >
+                      {post.title}
+                    </h3>
 
-                      <Button>
+                    <p
+                      className="
+                      mt-4
+                      line-clamp-3
+                      leading-7
+                      text-gray-400
+                      "
+                    >
+                      {post.description}
+                    </p>
 
-                        Read More
+                    <Link
+                      href={post.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block"
+                    >
+
+                      <Button
+                        className="
+                        mt-8
+                        w-full
+                        justify-center
+                        gap-2
+                        "
+                      >
+                        Read on Medium
+
+                        <ArrowUpRight size={18} />
 
                       </Button>
 
@@ -136,17 +258,24 @@ export default function Blogs() {
 
                   </div>
 
-                </div>
+                </motion.article>
 
-              </motion.div>
+              ))}
 
-            ))}
+            </div>
 
-          </div>
+          )}
 
         </AnimatedSection>
 
       </Container>
+
     </section>
+
   );
+
 }
+          
+
+
+            

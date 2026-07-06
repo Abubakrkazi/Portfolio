@@ -9,11 +9,30 @@ const menus = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
   { name: "Skills", href: "#skills" },
+  { name: "Blogs", href: "#blogs" },
   { name: "Projects", href: "#projects" },
   { name: "Experience", href: "#experience" },
   { name: "Education", href: "#education" },
   { name: "Contact", href: "#contact" },
 ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);

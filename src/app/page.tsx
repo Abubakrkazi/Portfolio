@@ -11,6 +11,7 @@ import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Experience from "@/components/Experience";
 import Education from "@/components/Education";
+import GitHubSection from "@/components/github/GitHubSection";
 import Certificates from "@/components/Certificates";
 import Blogs from "@/components/Blogs";
 import Contact from "@/components/Contact";
@@ -78,7 +79,7 @@ export default function Home() {
           <Experience />
 
           <Education />
-
+          <GitHubSection/>
           <Certificates />
 
           <Blogs />
