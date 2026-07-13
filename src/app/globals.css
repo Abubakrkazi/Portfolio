@@ -1,49 +1,73 @@
 @import "tailwindcss";
 
+/* ===========================
+   Light Theme
+=========================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+
+  --border: #e2e8f0;
+
+  --primary: #8245ec;
+  --secondary: #06b6d4;
+
+  --muted: #64748b;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ===========================
+   Dark Theme
+=========================== */
+
+.dark {
+  --background: #050414;
+  --foreground: #ffffff;
+
+  --card: #081b29;
+  --card-foreground: #ffffff;
+
+  --border: rgba(255, 255, 255, 0.1);
+
+  --primary: #8245ec;
+  --secondary: #22d3ee;
+
+  --muted: #94a3b8;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ===========================
+   Base
+=========================== */
+
+* {
+  transition:
+    background-color .25s ease,
+    color .25s ease,
+    border-color .25s ease;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
+  overflow-x: hidden;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
 
-
-body {
-  background: linear-gradient(
-      to bottom,
-      #081b29,
-      #0b1120,
-      #081b29
-  );
-  color: white;
-  overflow-x: hidden;
-}
+/* Selection */
 
 ::selection {
   background: #8245EC;
   color: white;
 }
 
+/* Glass */
+
 .glass {
-  background: rgba(17, 24, 39, 0.65);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(130, 69, 236, 0.2);
 }

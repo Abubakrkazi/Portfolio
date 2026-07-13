@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
-
 import Image from "next/image";
+import { Menu, X } from "lucide-react";
+import ThemeToggle from "@/components/theme/ThemeToggle";
+
 const menus = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
@@ -16,36 +17,44 @@ const menus = [
   { name: "Contact", href: "#contact" },
 ];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#081b29]/80 backdrop-blur-xl">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+<header
+  className="
+    fixed
+    top-0
+    left-0
+    right-0
+    z-50
+    border-b
+    border-slate-300/60
+    dark:border-white/10
+   bg-white/70 dark:bg-[#081b29]/80
+    backdrop-blur-xl
+    shadow-[0_10px_35px_rgba(0,0,0,0.18)]
+    dark:shadow-[0_10px_35px_rgba(0,0,0,0.45)]
+    transition-all
+    duration-300
+  "
+>
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
         {/* Logo */}
         <Link
           href="/"
-          className="text-2xl font-extrabold tracking-wide text-white transition hover:text-[#8245EC]"
-        >
-          {"Portfolio"}
+    className="
+text-2xl
+font-extrabold
+tracking-wide
+text-slate-900
+dark:text-white
+transition-all
+duration-300
+hover:text-[#8245EC]
+hover:scale-105
+">
+          Portfolio
         </Link>
 
         {/* Desktop Menu */}
@@ -54,7 +63,13 @@ export default function Navbar() {
             <li key={menu.name}>
               <Link
                 href={menu.href}
-                className="text-gray-300 transition duration-300 hover:text-[#8245EC]"
+        className="
+text-slate-700
+dark:text-gray-300
+transition-all
+duration-300
+hover:text-[#8245EC]
+"
               >
                 {menu.name}
               </Link>
@@ -62,43 +77,44 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop Profile */}
+        {/* Desktop Right Side */}
+        <div className="hidden items-center gap-4 lg:flex">
+          <ThemeToggle />
 
-<div className="hidden lg:block">
-  <Link href="/resume.pdf" target="_blank">
-    <div
-      className="
-      rounded-full
-      p-[2px]
-      bg-gradient-to-r
-      from-[#8245EC]
-      to-cyan-400
-      transition-all
-      duration-300
-      hover:scale-110
-      cursor-pointer
-      "
-    >
-      <Image
-        src="/profile.jpg"
-        alt="Abubakr Kazi"
-        width={50}
-        height={50}
-        priority
-        className="
-        rounded-full
-        object-cover
-        border
-        border-[#081b29]
-        "
-      />
-    </div>
-  </Link>
-</div>
+          {/* <Link href="/images/profile.pdf"  target="_blank"> */}
+            <div
+              className="
+                cursor-pointer
+                rounded-full
+                bg-gradient-to-r
+                from-[#8245EC]
+                to-cyan-400
+                p-[2px]
+                transition-all
+                duration-300
+               hover:scale-110 hover:rotate 5
+              "
+            >
+              <Image
+                src="/profile.jpg"
+                alt="Abubakr Kazi"
+                width={52}
+                height={52}
+                priority
+                className="
+                  rounded-full
+                  border
+                  border-[#081b29]
+                  object-cover
+                "
+              />
+            </div>
+          {/* </Link> */}
+        </div>
 
         {/* Mobile Menu Button */}
         <button
-          className="text-white lg:hidden"
+      className="text-slate-900 dark:text-white lg:hidden"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle Menu"
         >
@@ -122,34 +138,42 @@ export default function Navbar() {
               </li>
             ))}
 
-        <Link href="/resume.pdf" target="_blank">
-  <div
-    className="
-      rounded-full
-      p-[2px]
-      bg-gradient-to-r
-      from-[#8245EC]
-      to-cyan-400
-      transition-all
-      duration-300
-      hover:scale-110
-    "
-  >
-   <Image
-  src="/images/profile.jpg"
-  alt="Abubakr Kazi"
-  width={50}
-  height={50}
-  priority
-  className="
-    rounded-full
-    object-cover
-    border
-    border-[#081b29]
-  "
-/>
-  </div>
-</Link>
+            {/* Theme Toggle */}
+            <div className="flex justify-center pt-2">
+              <ThemeToggle />
+            </div>
+
+            {/* Profile */}
+            <div className="flex justify-center pt-2">
+              <Link href="/images/profile.jpg" target="_blank">
+                <div
+                  className="
+                    rounded-full
+                    bg-gradient-to-r
+                    from-[#8245EC]
+                    to-cyan-400
+                    p-[2px]
+                    transition-all
+                    duration-300
+                    hover:scale-110
+                  "
+                >
+                  <Image
+                    src="/images/profile.jpg"
+                    alt="Abubakr Kazi"
+                    width={50}
+                    height={50}
+                    priority
+                    className="
+                      rounded-full
+                     border-white
+dark:border-[#081b29]
+                      object-cover
+                    "
+                  />
+                </div>
+              </Link>
+            </div>
           </ul>
         </div>
       )}

@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Abubakr Kazi",
 
-  title: "Abubakr Kazi | MERN Stack Developer",
+ title: "Abubakr Kazi | Full Stack Software Engineer",
 
   description:
     "Abubakr Kazi is a MERN Stack Developer passionate about building modern web applications using React, Next.js, TypeScript, Node.js, Express.js and MongoDB.",

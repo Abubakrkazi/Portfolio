@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { siteConfig } from "@/lib/seo";
-
+import ThemeProvider from "@/components/providers/ThemeProvider";
 import JsonLd from "@/components/seo/JsonLd";
 export const viewport = {
   themeColor: "#050414",
@@ -84,11 +84,34 @@ verification: {
     images: [siteConfig.ogImage],
   },
 
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
+icons: {
+  icon: [
+    {
+      url: "/favicon-16x16.png",
+      sizes: "16x16",
+      type: "image/png",
+    },
+    {
+      url: "/favicon-32x32.png",
+      sizes: "32x32",
+      type: "image/png",
+    },
+    {
+      url: "/favicon.ico",
+    },
+  ],
+
+  apple: [
+    {
+      url: "/apple-touch-icon.png",
+      sizes: "180x180",
+      type: "image/png",
+    },
+  ],
+
+  shortcut: "/favicon.ico",
+},
+manifest: "/site.webmanifest",
 };
 export default function RootLayout({
   children,
@@ -97,11 +120,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-[#050414] text-white antialiased">
-         <JsonLd />
-
-        {children}
-      </body>
+ <body className="antialiased">
+  <ThemeProvider
+    attribute="class"
+    defaultTheme="dark"
+    enableSystem={false}
+    disableTransitionOnChange
+  >
+    <JsonLd />
+    {children}
+  </ThemeProvider>
+</body>
     </html>
   );
 }

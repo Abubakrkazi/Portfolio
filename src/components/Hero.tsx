@@ -255,22 +255,16 @@ export default function Hero() {
             {/* Buttons */}
 
             <div className="mt-0 flex flex-wrap gap-5">
-
-              <Link href="/resume.pdf">
-
-                <Button>
-
-                  <Download size={20} />
-
-                  <span className="ml-2">
-
-                    Download Resume
-
-                  </span>
-
-                </Button>
-
-              </Link>
+<Link
+  href="/resume.pdf"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <Button>
+    <Download size={20} />
+    <span className="ml-2">Download Resume</span>
+  </Button>
+</Link>
 
               <Link href="#contact">
 
