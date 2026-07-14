@@ -29,7 +29,7 @@ export default function GitHubRepos({
         new Date(b.updated_at).getTime() -
         new Date(a.updated_at).getTime()
     )
-    .slice(0, 12);
+    .slice(0, 9);
 
  const languages = useMemo(() => {
   return [

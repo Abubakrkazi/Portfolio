@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 
 import { AnimatedSection, Button, Container } from "./ui";
 
-interface MediumPost {
+interface RSSItem {
   title: string;
   link: string;
   pubDate: string;
@@ -17,19 +17,21 @@ interface MediumPost {
 }
 
 export default function Blogs() {
-  const [posts, setPosts] = useState<MediumPost[]>([]);
+  const [posts, setPosts] = useState<RSSItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchBlogs() {
       try {
-        const res = await fetch(
-          "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@kaziabubakr87"
-        );
-
+      const res = await fetch(
+  `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@kaziabubakr87&t=${Date.now()}`,
+  {
+    cache: "no-store",
+  }
+);
         const data = await res.json();
 
-        const blogs = data.items.map((item: any) => ({
+   const blogs = data.items.map((item: RSSItem) => ({
           title: item.title,
           link: item.link,
           pubDate: item.pubDate,
@@ -42,7 +44,7 @@ export default function Blogs() {
             "/images/blog-placeholder.jpg",
         }));
 
-        setPosts(blogs);
+      setPosts(blogs.slice(0,3));
       } catch (err) {
         console.error(err);
       } finally {
@@ -172,17 +174,12 @@ export default function Blogs() {
 
                   <div className="relative h-60 w-full overflow-hidden">
 
-                    <Image
-                      src={post.thumbnail}
-                      alt={post.title}
-                      fill
-                      className="
-                      object-cover
-                      transition-transform
-                      duration-500
-                      group-hover:scale-110
-                      "
-                    />
+                  <Image
+  src={post.thumbnail || "/images/blog-placeholder.jpg"}
+  alt={post.title}
+  fill
+  className="object-cover"
+/>
 
                   </div>
 

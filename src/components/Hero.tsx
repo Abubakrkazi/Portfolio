@@ -414,12 +414,13 @@ export default function Hero() {
                 <Facebook size={22} />
               </Link>
 
-              <Link
-                href="mailto:kaziabubakr87@gmail.com"
-                className="rounded-full border border-white/10 bg-white/5 p-4 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]"
-              >
-                <Mail size={22} />
-              </Link>
+             <Link
+  href="mailto:kaziabubakr87@gmail.com?subject=Job Opportunity&body=Hello Abubakr,%0D%0A%0D%0AI came across your portfolio and would like to discuss a potential opportunity with you.%0D%0A%0D%0ALooking forward to hearing from you.%0D%0A"
+  className="rounded-full border border-white/10 bg-white/5 p-4 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]"
+  aria-label="Send Email"
+>
+  <Mail size={22} />
+</Link>
 
             </div>
 
