@@ -29,9 +29,15 @@ export default function Blogs() {
     cache: "no-store",
   }
 );
-        const data = await res.json();
+     const data = await res.json();
 
-   const blogs = data.items.map((item: RSSItem) => ({
+if (!data.items || !Array.isArray(data.items)) {
+  throw new Error(
+    data.message || "Failed to load Medium posts"
+  );
+}
+
+const blogs = data.items.map((item: RSSItem) => ({
           title: item.title,
           link: item.link,
           pubDate: item.pubDate,
@@ -174,12 +180,17 @@ export default function Blogs() {
 
                   <div className="relative h-60 w-full overflow-hidden">
 
-                  <Image
-  src={post.thumbnail || "/images/blog-placeholder.jpg"}
-  alt={post.title}
-  fill
-  className="object-cover"
-/>
+                    <Image
+                      src={post.thumbnail}
+                      alt={post.title}
+                      fill
+                      className="
+                      object-cover
+                      transition-transform
+                      duration-500
+                      group-hover:scale-110
+                      "
+                    />
 
                   </div>
 

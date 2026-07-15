@@ -117,7 +117,7 @@ export default function Hero() {
                 "
               >
 
-                Available Full-Time
+              Available for Full-Time Opportunities
 
               </span>
 

@@ -25,7 +25,7 @@ import {
   SiFirebase,
 } from "react-icons/si";
 
-const skills = [
+export const skills = [
   { name: "HTML5", icon: FaHtml5, color: "text-orange-500" },
   { name: "CSS3", icon: FaCss3Alt, color: "text-blue-500" },
   { name: "JavaScript", icon: FaJs, color: "text-yellow-400" },

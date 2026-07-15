@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 import { AnimatedSection, Button, Container } from "./ui";
 
-const projects = [
+export const projects = [
   {
     title: "Portfolio Website",
     image: "/images/projects/portfolio.png",

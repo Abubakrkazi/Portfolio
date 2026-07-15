@@ -1,4 +1,6 @@
 "use client";
+import { projects } from "./Projects";
+import { skills } from "./Skills";
 
 import CountUp from "react-countup";
 import { motion } from "framer-motion";
@@ -6,12 +8,12 @@ import { AnimatedSection, Container } from "./ui";
 
 const stats = [
   {
-    number: 20,
+    number: projects.length,
     suffix: "+",
     title: "Projects Completed",
   },
   {
-    number: 15,
+    number: skills.length,
     suffix: "+",
     title: "Technologies",
   },
