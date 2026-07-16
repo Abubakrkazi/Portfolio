@@ -399,7 +399,7 @@ export default function Hero() {
               </Link>
 
               <Link
-                href="https://linkedin.com/"
+                href="https://www.linkedin.com/in/abubakr-kazi"
                 target="_blank"
                 className="rounded-full border border-white/10 bg-white/5 p-4 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]"
               >

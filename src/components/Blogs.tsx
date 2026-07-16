@@ -20,47 +20,45 @@ export default function Blogs() {
   const [posts, setPosts] = useState<RSSItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchBlogs() {
-      try {
+useEffect(() => {
+  async function fetchBlogs() {
+    try {
       const res = await fetch(
-  `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@kaziabubakr87&t=${Date.now()}`,
-  {
-    cache: "no-store",
-  }
-);
-     const data = await res.json();
+        "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@kaziabubakr"
+      );
 
-if (!data.items || !Array.isArray(data.items)) {
-  throw new Error(
-    data.message || "Failed to load Medium posts"
-  );
-}
+      const data = await res.json();
 
-const blogs = data.items.map((item: RSSItem) => ({
-          title: item.title,
-          link: item.link,
-          pubDate: item.pubDate,
-          description: item.description
-            .replace(/<[^>]+>/g, "")
-            .slice(0, 140),
-
-          thumbnail:
-            item.thumbnail ||
-            "/images/blog-placeholder.jpg",
-        }));
-
-      setPosts(blogs.slice(0,3));
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
+      if (!data.items || !Array.isArray(data.items)) {
+        console.warn(
+          "Medium feed is still being processed:",
+          data
+        );
+        return;
       }
+
+      const blogs = data.items.map((item: RSSItem) => ({
+        title: item.title,
+        link: item.link,
+        pubDate: item.pubDate,
+        description: item.description
+          .replace(/<[^>]+>/g, "")
+          .slice(0, 140),
+        thumbnail:
+          item.thumbnail ||
+          "/images/blog-placeholder.jpg",
+      }));
+
+      setPosts(blogs);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    fetchBlogs();
-  }, []);
-
+  fetchBlogs();
+}, []);
 
 
 
@@ -109,8 +107,7 @@ const blogs = data.items.map((item: RSSItem) => ({
               text-gray-400
             "
             >
-              Latest technical articles automatically
-              fetched from my Medium profile.
+              A collection of technical articles where I share insights, lessons, and ideas from my journey in software development.
             </p>
 
           </div>

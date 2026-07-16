@@ -6,25 +6,27 @@ import { AnimatedSection, Container } from "./ui";
 const education = [
   {
     degree: "B.Sc. in Computer Science & Engineering",
-    institution: "Bangladesh University of Business & Technology  ,Mirpur-2,Dhaka-1216",
-    duration: "2023 - Present",
+    institution:
+      "Bangladesh University of Business and Technology (BUBT)\nMirpur-2, Dhaka-1216, Bangladesh",
+    duration: "2022 - Present",
     description:
-      "Currently pursuing a Bachelor's degree in Computer Science & Engineering with a focus on Software Development, Data Structures, Algorithms, Database Systems and Artificial Intelligence.",
+      "Currently pursuing a Bachelor's degree in Computer Science and Engineering, with a focus on Software Development, Data Structures and Algorithms, Database Systems, and Artificial Intelligence.",
   },
   {
     degree: "Higher Secondary Certificate (HSC)",
-    institution: "Gopalganj Government College, Gopalganj",
-    duration: "2020 - 2022",
+    institution:
+      "Gopalganj Government College.\nGopalganj, Bangladesh",
+    duration: "2018 - 2020",
     description:
-      "Completed Higher Secondary education with a Science background, building a strong foundation in Mathematics and Physics.",
+      "Completed Higher Secondary education in the Science stream, developing a strong foundation in Mathematics, Physics, and analytical problem-solving.",
   },
   {
     degree: "Secondary School Certificate (SSC)",
-    institution: "Dighirjan Seconday School & Collage ,Nazirpur,Pironpur",
-   
-    duration: "2018 - 2020",
+    institution:
+      "Dighirjan Secondary School & College.\nNazirpur, Pirojpur, Bangladesh",
+    duration: "2013 - 2018",
     description:
-      "Completed Secondary education with excellent academic performance and developed a strong interest in technology.",
+      "Completed Secondary education with a strong foundation in Science and developed an early interest in technology and computer science.",
   },
 ];
 
@@ -51,8 +53,7 @@ export default function Education() {
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl leading-8 text-gray-400">
-              My educational background that has shaped my journey
-              as a Software Developer.
+            My educational background and academic foundation in computer science and software development.
             </p>
 
           </div>

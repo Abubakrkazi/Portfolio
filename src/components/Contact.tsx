@@ -88,8 +88,7 @@ export default function Contact() {
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl leading-8 text-gray-400">
-              Let's build something amazing together. I'm always open to new
-              opportunities.
+             Have a project in mind, an opportunity to discuss, or simply want to connect? I'd love to hear from you.
             </p>
           </div>
 
@@ -110,11 +109,11 @@ export default function Contact() {
               "
             >
               <h3 className="text-3xl font-bold text-white">
-                Let's Work Together 🚀
+             Let's Connect
               </h3>
 
               <p className="mt-4 leading-7 text-gray-400">
-                Feel free to contact me through email, phone or social media.
+             I'm always open to discussing new projects, professional opportunities, and interesting ideas. Feel free to reach out through email or connect with me on social media.
               </p>
 
               <div className="mt-10 space-y-5">
@@ -208,7 +207,7 @@ export default function Contact() {
                     {/* GitHub */}
 
                     <Link
-                      href="https://github.com/YOUR_USERNAME"
+                      href="https://github.com/Abubakrkazi"
                       target="_blank"
                       className="group flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-[#081b29] p-5 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]/10"
                     >
@@ -219,7 +218,7 @@ export default function Contact() {
                     {/* LinkedIn */}
 
                     <Link
-                      href="https://linkedin.com/in/YOUR_USERNAME"
+                      href="https://linkedin.com/in/abubakr-kazi"
                       target="_blank"
                       className="group flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-[#081b29] p-5 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]/10"
                     >
@@ -230,7 +229,7 @@ export default function Contact() {
                     {/* Facebook */}
 
                     <Link
-                      href="https://facebook.com/YOUR_USERNAME"
+                      href="https://facebook.com/kazi.abir.4878"
                       target="_blank"
                       className="group flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-[#081b29] p-5 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]/10"
                     >
@@ -241,7 +240,7 @@ export default function Contact() {
                     {/* Instagram */}
 
                     <Link
-                      href="https://instagram.com/YOUR_USERNAME"
+                      href="https://x.com/KAZIABIR4VAI"
                       target="_blank"
                       className="group flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-[#081b29] p-5 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]/10"
                     >
@@ -252,7 +251,7 @@ export default function Contact() {
                     {/* X */}
 
                     <Link
-                      href="https://x.com/YOUR_USERNAME"
+                      href="https://www.instagram.com/kaziabir4878?igsh=dzZyOXNwdXB6dnJ6"
                       target="_blank"
                       className="group flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-[#081b29] p-5 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]/10"
                     >

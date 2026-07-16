@@ -66,8 +66,7 @@ export default function Skills() {
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl leading-8 text-gray-400">
-              Here are the technologies and tools I use to build
-              modern, scalable and high-performance web applications.
+            The technologies and tools I use to build modern, scalable, and high-performance web applications.
             </p>
 
           </div>

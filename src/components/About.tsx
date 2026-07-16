@@ -30,8 +30,7 @@ export default function About() {
 
             <p className="mt-6 max-w-2xl mx-auto text-gray-400 leading-8">
 
-              A passionate Full Stack Developer who enjoys building
-              modern, scalable and user-friendly web applications.
+A Full Stack Developer focused on building scalable, user-centered web applications and intelligent software solutions using modern technologies.
 
             </p>
 
@@ -69,18 +68,13 @@ export default function About() {
 
             <p className="mt-8 leading-9 text-gray-400">
 
-              I'm a passionate Full Stack Developer with a strong
-              interest in building high-quality web applications
-              using modern technologies.
 
-              I enjoy solving real-world problems, writing clean
-              and maintainable code, and continuously learning
-              new technologies.
 
-              My goal is to become a world-class Software Engineer
-              and contribute to impactful products that improve
-              people's lives.
+I'm a Full Stack Developer focused on building scalable, user-centric web applications with modern technologies.
 
+I enjoy turning complex problems into clean, maintainable solutions and continuously improving my skills across software engineering, system design, and emerging technologies.
+
+My long-term goal is to build impactful software products that solve real-world problems and create meaningful value for people and businesses.
             </p>
 
             {/* Highlights */}
@@ -97,9 +91,7 @@ export default function About() {
 
                 <p className="mt-3 text-gray-400">
 
-                  React, Next.js, Node.js,
-                  Express, MongoDB,
-                  PostgreSQL & Prisma.
+Building modern web applications with React, Next.js, Node.js, Express, MongoDB, PostgreSQL, and Prisma.              
 
                 </p>
 
@@ -115,9 +107,7 @@ export default function About() {
 
                 <p className="mt-3 text-gray-400">
 
-                  Love solving complex
-                  programming challenges
-                  with clean architecture.
+                  Designing clean, maintainable solutions for complex technical and real-world problems.
 
                 </p>
 
@@ -133,9 +123,7 @@ export default function About() {
 
                 <p className="mt-3 text-gray-400">
 
-                  Always learning
-                  new technologies,
-                  frameworks and tools.
+Constantly exploring new technologies, frameworks, tools, and software engineering practices.
 
                 </p>
 
@@ -151,9 +139,7 @@ export default function About() {
 
                 <p className="mt-3 text-gray-400">
 
-                  Become an international
-                  Software Engineer and
-                  AI Innovator.
+                 Growing into a highly skilled Software Engineer and building impactful products at the intersection of software and AI.
 
                 </p>
 
@@ -163,27 +149,29 @@ export default function About() {
 
             {/* Buttons */}
 
-            <div className="mt-12 flex flex-wrap gap-5">
+<div className="mt-12 flex flex-wrap gap-5">
 
-              <Button>
+  <a href="#contact">
+    <Button>
+      Let's Connect
+    </Button>
+  </a>
 
-                Contact Me
+  <a href="#projects">
+    <Button
+      className="
+      border
+      border-[#8245EC]
+      bg-transparent
+      "
+    >
+     View My Projects
+    </Button>
+  </a>
 
-              </Button>
+</div>
 
-              <Button
-                className="
-                border
-                border-[#8245EC]
-                bg-transparent
-                "
-              >
-
-                My Projects
-
-              </Button>
-
-            </div>
+           
 
           </motion.div>
 

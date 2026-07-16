@@ -69,9 +69,7 @@ export default function Projects() {
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl leading-8 text-gray-400">
-              A collection of projects that showcase my skills,
-              creativity and passion for building modern web
-              applications.
+             A selection of projects that demonstrate my technical skills, problem-solving abilities, and experience building modern, scalable web applications.
             </p>
 
           </div>

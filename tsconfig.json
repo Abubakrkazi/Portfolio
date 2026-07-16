@@ -24,7 +24,7 @@
 
     "incremental": true,
 
-    "baseUrl": ".",
+ 
 
     "plugins": [
       {

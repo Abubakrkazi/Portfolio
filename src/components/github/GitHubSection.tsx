@@ -71,8 +71,7 @@ export default function GitHubSection() {
           </h2>
 
           <p className="mx-auto mt-6 max-w-3xl leading-8 text-gray-400">
-            Live GitHub statistics, repositories,
-            programming languages and analytics.
+           Explore my open-source projects, coding activity, programming languages, and development journey on GitHub.
           </p>
 
         </div>

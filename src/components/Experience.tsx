@@ -8,25 +8,25 @@ const experiences = [
     year: "2023",
     title: "Started Programming Journey",
     description:
-      "Began learning programming fundamentals, problem solving and web development.",
+      "Began learning programming fundamentals, problem-solving, and the core concepts of web development.",
   },
   {
     year: "2024",
     title: "Frontend Development",
     description:
-      "Learned HTML, CSS, JavaScript, React and Tailwind CSS by building multiple projects.",
+      "Built multiple projects while developing skills in HTML, CSS, JavaScript, React, and Tailwind CSS.",
   },
   {
     year: "2025",
     title: "Backend Development",
     description:
-      "Started working with Next.js, Node.js, Express, MongoDB, PostgreSQL and Prisma.",
+      "Expanded into modern full-stack development with Next.js, Node.js, Express, MongoDB, PostgreSQL, and Prisma.",
   },
   {
     year: "Future",
     title: "Software Engineer",
     description:
-      "Working towards becoming an international Full Stack Software Engineer and AI Innovator.",
+      "Working towards becoming a highly skilled Software Engineer and building impactful software products at the intersection of full-stack development and AI.",
   },
 ];
 
@@ -50,7 +50,7 @@ export default function Experience() {
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl leading-8 text-gray-400">
-              My learning path and growth as a Full Stack Developer.
+              A continuous journey of learning, building, and growing as a Full Stack Developer.
             </p>
 
           </div>
