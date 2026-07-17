@@ -7,42 +7,53 @@ import { AnimatedSection, Button, Container } from "./ui";
 
 export const projects = [
   {
-    title: "Portfolio Website",
-    image: "/images/projects/portfolio.png",
-    description:
-      "Modern portfolio website built with Next.js, Tailwind CSS, TypeScript and Framer Motion.",
-    technologies: [
-      "Next.js",
-      "Tailwind CSS",
-      "TypeScript",
-      "Framer Motion",
-    ],
-  },
-
-  {
     title: "KrishiBazar AI",
     image: "/images/projects/krishibazar.png",
     description:
-      "AI powered agriculture platform helping farmers with smart farming solutions.",
+      "An AI-powered agriculture platform designed to help Bangladeshi farmers with intelligent farming solutions, crop disease detection, weather insights, and personalized agricultural guidance.",
     technologies: [
-      "React",
+      "Next.js",
+      "TypeScript",
       "Node.js",
-      "MongoDB",
+      "PostgreSQL",
       "AI",
     ],
+    liveUrl: "#",
+    githubUrl: "#",
+    featured: true,
   },
 
   {
     title: "Vehicle Rental System",
     image: "/images/projects/vehicle-rental.png",
     description:
-      "Vehicle Booking Management System with Better Auth, Prisma and PostgreSQL.",
+      "A full-stack vehicle rental platform with vehicle management, booking workflows, authentication, and a scalable backend architecture.",
     technologies: [
       "Next.js",
+      "TypeScript",
       "Prisma",
       "PostgreSQL",
       "Better Auth",
     ],
+    liveUrl: "#",
+    githubUrl: "#",
+    featured: false,
+  },
+
+  {
+    title: "Portfolio Website",
+    image: "/images/projects/portfolio.png",
+    description:
+      "A modern developer portfolio built to showcase my projects, technical skills, experience, education, GitHub activity, and technical articles.",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+    ],
+    liveUrl: "#",
+    githubUrl: "#",
+    featured: false,
   },
 ];
 
@@ -179,27 +190,39 @@ export default function Projects() {
 
                   {/* Buttons */}
 
-                  <div className="mt-8 flex gap-4">
+<div className="mt-8 flex gap-4">
 
-                    <Button>
+  <a
+    href={project.liveUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex-1"
+  >
+    <Button className="w-full justify-center">
+      Live Demo
+    </Button>
+  </a>
 
-                      Live Demo
+  <a
+    href={project.githubUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex-1"
+  >
+    <Button
+      className="
+        w-full
+        justify-center
+        border
+        border-[#8245EC]
+        bg-transparent
+      "
+    >
+      GitHub
+    </Button>
+  </a>
 
-                    </Button>
-
-                    <Button
-                      className="
-                        border
-                        border-[#8245EC]
-                        bg-transparent
-                      "
-                    >
-
-                      GitHub
-
-                    </Button>
-
-                  </div>
+</div>
 
                 </div>
 
