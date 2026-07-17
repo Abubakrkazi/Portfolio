@@ -386,43 +386,125 @@ export default function Hero() {
 
             </div>
 
-            {/* Social Icons */}
+{/* Social Icons */}
 
-            <div className="mt-10 flex justify-center gap-5">
+<div className="mt-10 flex justify-center gap-5">
 
-              <Link
-                href="https://github.com/Abubakrkazi"
-                target="_blank"
-                className="rounded-full border border-white/10 bg-white/5 p-4 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]"
-              >
-                <Github size={22} />
-              </Link>
+  {/* GitHub */}
 
-              <Link
-                href="https://www.linkedin.com/in/abubakr-kazi"
-                target="_blank"
-                className="rounded-full border border-white/10 bg-white/5 p-4 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]"
-              >
-                <Linkedin size={22} />
-              </Link>
+  <Link
+    href="https://github.com/Abubakrkazi"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="GitHub"
+    className="
+      cursor-pointer
+      rounded-full
+      border
+      border-slate-300
+      bg-slate-100
+      p-4
+      text-slate-700
+      transition-all
+      duration-300
+      hover:-translate-y-2
+      hover:border-[#8245EC]
+      hover:bg-[#8245EC]
+      hover:text-white
 
-              <Link
-                href="https://www.facebook.com/kazi.abir.4878"
-                target="_blank"
-                className="rounded-full border border-white/10 bg-white/5 p-4 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]"
-              >
-                <Facebook size={22} />
-              </Link>
+      dark:border-white/10
+      dark:bg-white/5
+      dark:text-white
+    "
+  >
+    <Github size={22} />
+  </Link>
 
-             <Link
-  href="mailto:kaziabubakr87@gmail.com?subject=Job Opportunity&body=Hello Abubakr,%0D%0A%0D%0AI came across your portfolio and would like to discuss a potential opportunity with you.%0D%0A%0D%0ALooking forward to hearing from you.%0D%0A"
-  className="rounded-full border border-white/10 bg-white/5 p-4 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]"
+
+  {/* LinkedIn */}
+
+  <Link
+    href="https://www.linkedin.com/in/abubakr-kazi"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="LinkedIn"
+    className="
+      cursor-pointer
+      rounded-full
+      border
+      border-slate-300
+      bg-slate-100
+      p-4
+      text-slate-700
+      transition-all
+      duration-300
+      hover:-translate-y-2
+      hover:border-[#8245EC]
+      hover:bg-[#8245EC]
+      hover:text-white
+
+      dark:border-white/10
+      dark:bg-white/5
+      dark:text-white
+    "
+  >
+    <Linkedin size={22} />
+  </Link>
+
+
+ {/* Facebook */}
+
+<a
+  href="https://www.facebook.com/kazi.abir.4878"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Facebook"
+  className="
+    relative
+    z-10
+    cursor-pointer
+    rounded-full
+    border
+    border-white/10
+    bg-white/5
+    p-4
+    text-white
+    transition-all
+    duration-300
+    hover:-translate-y-2
+    hover:border-[#8245EC]
+    hover:bg-[#8245EC]
+  "
+>
+  <Facebook size={22} />
+</a>
+
+
+{/* Email */}
+
+<a
+  href="mailto:kaziabubakr87@gmail.com?subject=Job%20Opportunity"
   aria-label="Send Email"
+  className="
+    relative
+    z-10
+    cursor-pointer
+    rounded-full
+    border
+    border-white/10
+    bg-white/5
+    p-4
+    text-white
+    transition-all
+    duration-300
+    hover:-translate-y-2
+    hover:border-[#8245EC]
+    hover:bg-[#8245EC]
+  "
 >
   <Mail size={22} />
-</Link>
-
-            </div>
+</a>
+</div>
 
           </AnimatedSection>
                   </div>
