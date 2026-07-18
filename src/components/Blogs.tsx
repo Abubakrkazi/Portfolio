@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { CalendarDays, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -16,65 +15,57 @@ interface RSSItem {
   thumbnail: string;
 }
 
+const blogImages: Record<string, string> = {
+  "What Are AI Agents? A Complete Beginner’s Guide (2026)":
+    "/images/blog-1.jpg",
+
+  "The Quantum Search Revolution: Grover’s Algorithm Unveiled":
+    "/images/blog-2.jpg",
+};
 export default function Blogs() {
   const [posts, setPosts] = useState<RSSItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-useEffect(() => {
-  async function fetchBlogs() {
-    try {
-      const res = await fetch(
-        "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@kaziabubakr87"
-      );
-
-      const data = await res.json();
-
-      if (!data.items || !Array.isArray(data.items)) {
-        console.warn(
-          "Medium feed is still being processed:",
-          data
+  useEffect(() => {
+    async function fetchBlogs() {
+      try {
+        const res = await fetch(
+          "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@kaziabubakr87",
         );
-        return;
+
+        const data = await res.json();
+
+        if (!data.items || !Array.isArray(data.items)) {
+          console.warn("Medium feed is still being processed:", data);
+          return;
+        }
+
+        const blogs = data.items.map((item: RSSItem, index: number) => ({
+          title: item.title,
+          link: item.link,
+          pubDate: item.pubDate,
+
+          description: item.description.replace(/<[^>]+>/g, "").slice(0, 140),
+
+          thumbnail: blogImages[item.title] || "/images/blog-placeholder.jpg",
+        }));
+
+        setPosts(blogs);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
       }
-
-      const blogs = data.items.map((item: RSSItem) => ({
-        title: item.title,
-        link: item.link,
-        pubDate: item.pubDate,
-        description: item.description
-          .replace(/<[^>]+>/g, "")
-          .slice(0, 140),
-        thumbnail:
-          item.thumbnail ||
-          "/images/blog-placeholder.jpg",
-      }));
-
-      setPosts(blogs);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
     }
-  }
 
-  fetchBlogs();
-}, []);
+    fetchBlogs();
+  }, []);
 
-
-
-
-  
-    return (
-    <section
-      id="blogs"
-      className="bg-[#081b29] py-28"
-    >
+  return (
+    <section id="blogs" className="bg-[#081b29] py-28">
       <Container>
-
         <AnimatedSection>
-
           <div className="text-center">
-
             <p
               className="
               font-semibold
@@ -107,13 +98,12 @@ useEffect(() => {
               text-gray-400
             "
             >
-              A collection of technical articles where I share insights, lessons, and ideas from my journey in software development.
+              A collection of technical articles where I share insights,
+              lessons, and ideas from my journey in software development.
             </p>
-
           </div>
 
-                    {loading && (
-
+          {loading && (
             <div
               className="
               mt-20
@@ -123,11 +113,9 @@ useEffect(() => {
             >
               Loading latest blogs...
             </div>
-
           )}
 
-                    {!loading && (
-
+          {!loading && (
             <div
               className="
               mt-20
@@ -137,11 +125,7 @@ useEffect(() => {
               xl:grid-cols-3
             "
             >
-
-
-
-                            {posts.map((post, index) => (
-
+              {posts.map((post, index) => (
                 <motion.article
                   key={post.link}
                   initial={{
@@ -174,25 +158,15 @@ useEffect(() => {
                   hover:shadow-[0_0_40px_rgba(130,69,236,.35)]
                   "
                 >
-
                   <div className="relative h-60 w-full overflow-hidden">
-
-                    <Image
+                    <img
                       src={post.thumbnail}
                       alt={post.title}
-                      fill
-                      className="
-                      object-cover
-                      transition-transform
-                      duration-500
-                      group-hover:scale-110
-                      "
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-
                   </div>
 
                   <div className="p-7">
-
                     <div
                       className="
                       flex
@@ -204,9 +178,7 @@ useEffect(() => {
                     >
                       <CalendarDays size={16} />
 
-                      {new Date(
-                        post.pubDate
-                      ).toLocaleDateString("en-US", {
+                      {new Date(post.pubDate).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "long",
                         day: "numeric",
@@ -244,7 +216,6 @@ useEffect(() => {
                       rel="noopener noreferrer"
                       className="block"
                     >
-
                       <Button
                         className="
                         mt-8
@@ -254,33 +225,16 @@ useEffect(() => {
                         "
                       >
                         Read on Medium
-
                         <ArrowUpRight size={18} />
-
                       </Button>
-
                     </Link>
-
                   </div>
-
                 </motion.article>
-
               ))}
-
             </div>
-
           )}
-
         </AnimatedSection>
-
       </Container>
-
     </section>
-
   );
-
 }
-          
-
-
-            
