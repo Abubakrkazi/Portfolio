@@ -11,7 +11,12 @@ import GitHubAnalytics from "./GitHubAnalytics";
 import GitHubContribution from "./GitHubContribution";
 
 export default function GitHubSection() {
-  const { user, repos, loading, error } = useGithub();
+  const {
+    user,
+    repos,
+    loading,
+    error,
+  } = useGithub();
 
   if (loading) {
     return (
@@ -20,7 +25,7 @@ export default function GitHubSection() {
         className="bg-[#081b29] py-28"
       >
         <div className="mx-auto max-w-7xl px-6">
-          <h2 className="text-center text-5xl font-black text-white">
+          <h2 className="text-center text-4xl font-black text-white md:text-5xl">
             GitHub
           </h2>
 
@@ -39,7 +44,7 @@ export default function GitHubSection() {
         className="bg-[#081b29] py-28"
       >
         <div className="mx-auto max-w-7xl px-6">
-          <h2 className="text-center text-5xl font-black text-white">
+          <h2 className="text-center text-4xl font-black text-white md:text-5xl">
             GitHub
           </h2>
 
@@ -57,33 +62,30 @@ export default function GitHubSection() {
       className="bg-[#081b29] py-28"
     >
       <div className="mx-auto max-w-7xl px-6">
-
         {/* Heading */}
-
         <div className="text-center">
-
           <p className="font-semibold uppercase tracking-[6px] text-[#8245EC]">
             GitHub
           </p>
 
-          <h2 className="mt-4 text-5xl font-black text-white">
+          <h2 className="mt-4 text-4xl font-black text-white md:text-5xl">
             My GitHub Dashboard
           </h2>
 
           <p className="mx-auto mt-6 max-w-3xl leading-8 text-gray-400">
-           Explore my open-source projects, coding activity, programming languages, and development journey on GitHub.
+            Explore my open-source projects,
+            coding activity, programming
+            languages, and development journey
+            on GitHub.
           </p>
-
         </div>
 
         {/* Profile */}
-
         <div className="mt-20">
           <GitHubProfile user={user} />
         </div>
 
         {/* Stats */}
-
         <div className="mt-12">
           <GitHubStats
             user={user}
@@ -92,15 +94,13 @@ export default function GitHubSection() {
         </div>
 
         {/* Languages */}
-
         <div className="mt-12">
           <GitHubLanguages
             repos={repos}
           />
         </div>
 
-        {/* Featured Repository */}
-
+        {/* Featured Repo */}
         <div className="mt-12">
           <FeaturedRepo
             repos={repos}
@@ -108,15 +108,13 @@ export default function GitHubSection() {
         </div>
 
         {/* Latest Repositories */}
-
         <div className="mt-12">
           <GitHubRepos
             repos={repos}
           />
         </div>
 
-        {/* Repository Analytics */}
-
+        {/* Analytics */}
         <div className="mt-12">
           <GitHubAnalytics
             user={user}
@@ -124,12 +122,10 @@ export default function GitHubSection() {
           />
         </div>
 
-        {/* GitHub Streak + Activity Graph */}
-
+        {/* GitHub Streak */}
         <div className="mt-12">
           <GitHubContribution />
         </div>
-
       </div>
     </section>
   );

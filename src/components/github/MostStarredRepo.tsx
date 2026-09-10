@@ -1,68 +1,116 @@
 "use client";
 
-import { Star, GitFork } from "lucide-react";
+import Link from "next/link";
 
-interface Repository {
-  name: string;
-  description: string | null;
-  html_url: string;
-  stargazers_count: number;
-  forks_count: number;
-}
+import {
+  Star,
+  GitFork,
+  ExternalLink,
+  Trophy,
+} from "lucide-react";
 
-interface MostStarredRepoProps {
-  repositories: Repository[];
+import AnimatedCard from "@/components/ui/AnimatedCard";
+import { GitHubRepo } from "@/types/github";
+
+interface Props {
+  repos: GitHubRepo[];
 }
 
 export default function MostStarredRepo({
-  repositories,
-}: MostStarredRepoProps) {
-  const mostStarredRepositories = [...repositories]
-    .sort((a, b) => b.stargazers_count - a.stargazers_count)
-    .slice(0, 5);
+  repos,
+}: Props) {
+  const mostStarredRepo = [...repos]
+    .filter(
+      (repo) =>
+        repo.name.toLowerCase() !==
+        "abubakrkazi"
+    )
+    .sort(
+      (a, b) =>
+        b.stargazers_count -
+        a.stargazers_count
+    )[0];
+
+  if (!mostStarredRepo) {
+    return null;
+  }
 
   return (
-    <div className="space-y-4">
-      {mostStarredRepositories.map((repo) => (
-        <a
-          key={repo.name}
-          href={repo.html_url}
+    <AnimatedCard
+      className="
+        rounded-3xl
+        border
+        border-white/10
+        bg-white/5
+        p-7
+        backdrop-blur-xl
+        transition-all
+        duration-500
+        hover:border-[#8245EC]/70
+        hover:shadow-[0_0_40px_rgba(130,69,236,0.25)]
+        md:p-8
+      "
+    >
+      <div className="flex items-center gap-3">
+        <div className="rounded-xl bg-yellow-500/10 p-3">
+          <Trophy
+            size={24}
+            className="text-yellow-400"
+          />
+        </div>
+
+        <div>
+          <p className="text-sm text-gray-400">
+            Most Starred Repository
+          </p>
+
+          <h3 className="text-2xl font-bold text-white">
+            {mostStarredRepo.name}
+          </h3>
+        </div>
+      </div>
+
+      <p className="mt-5 leading-7 text-gray-400">
+        {mostStarredRepo.description ||
+          "One of my GitHub projects showcasing practical development and problem-solving skills."}
+      </p>
+
+      <div className="mt-7 flex items-center justify-between">
+        <div className="flex gap-5">
+          <div className="flex items-center gap-2 text-gray-400">
+            <Star
+              size={18}
+              className="text-yellow-400"
+            />
+            {mostStarredRepo.stargazers_count}
+          </div>
+
+          <div className="flex items-center gap-2 text-gray-400">
+            <GitFork
+              size={18}
+              className="text-cyan-400"
+            />
+            {mostStarredRepo.forks_count}
+          </div>
+        </div>
+
+        <Link
+          href={mostStarredRepo.html_url}
           target="_blank"
           rel="noopener noreferrer"
           className="
-            block
-            rounded-2xl
-            border
-            border-white/10
-            bg-white/5
-            p-5
-            transition-all
-            duration-300
-            hover:-translate-y-1
-            hover:border-[#8245EC]
+            rounded-xl
+            bg-[#8245EC]/15
+            p-3
+            text-[#a877ff]
+            transition
+            hover:bg-[#8245EC]
+            hover:text-white
           "
         >
-          <h3 className="text-lg font-bold text-white">
-            {repo.name}
-          </h3>
-
-          <p className="mt-2 text-sm text-gray-400">
-            {repo.description || "No description available."}
-          </p>
-
-          <div className="mt-4 flex gap-5 text-sm text-gray-400">
-            <span className="flex items-center gap-2">
-              <Star size={16} />
-              {repo.stargazers_count}
-            </span>
-
-            <span className="flex items-center gap-2">
-              <GitFork size={16} />
-              {repo.forks_count}
-            </span>
-          </div>
-        </a>
-      ))}
-    </div>
+          <ExternalLink size={19} />
+        </Link>
+      </div>
+    </AnimatedCard>
   );
 }

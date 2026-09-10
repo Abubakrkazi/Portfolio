@@ -1,11 +1,12 @@
 "use client";
 
 import AnimatedCard from "@/components/ui/AnimatedCard";
+
 import {
   Calendar,
   Code2,
   FileCode2,
-  Sparkles,
+  FolderGit2,
 } from "lucide-react";
 
 import {
@@ -28,26 +29,16 @@ export default function GitHubAnalytics({
       .filter(Boolean)
   );
 
-  const avgStars =
-    repos.length > 0
-      ? (
-          repos.reduce(
-            (sum, repo) => sum + repo.stargazers_count,
-            0
-          ) / repos.length
-        ).toFixed(1)
-      : "0";
-
   const joined = new Date(
     user.created_at
   ).getFullYear();
 
   const analytics = [
     {
-      title: "Public Gists",
-      value: user.public_gists,
-      icon: FileCode2,
-      color: "text-orange-400",
+      title: "Public Repositories",
+      value: user.public_repos,
+      icon: FolderGit2,
+      color: "text-purple-400",
     },
     {
       title: "Languages Used",
@@ -56,10 +47,10 @@ export default function GitHubAnalytics({
       color: "text-green-400",
     },
     {
-      title: "Avg Stars / Repo",
-      value: avgStars,
-      icon: Sparkles,
-      color: "text-yellow-400",
+      title: "Public Gists",
+      value: user.public_gists,
+      icon: FileCode2,
+      color: "text-orange-400",
     },
     {
       title: "GitHub Since",
@@ -70,10 +61,17 @@ export default function GitHubAnalytics({
   ];
 
   return (
-    <section className="mt-12">
-      <h2 className="mb-8 text-3xl font-bold text-white">
-        Repository Analytics
-      </h2>
+    <section>
+      <div className="mb-8">
+        <h2 className="text-3xl font-bold text-white">
+          Repository Analytics
+        </h2>
+
+        <p className="mt-2 text-gray-400">
+          A quick overview of my GitHub
+          development profile.
+        </p>
+      </div>
 
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {analytics.map((item, index) => {
@@ -92,16 +90,28 @@ export default function GitHubAnalytics({
                 backdrop-blur-xl
                 transition-all
                 duration-500
-                hover:-translate-y-3
-                hover:scale-[1.03]
-                hover:border-[#8245EC]
-                hover:shadow-[0_0_40px_rgba(130,69,236,0.35)]
+                hover:-translate-y-2
+                hover:border-[#8245EC]/70
+                hover:shadow-[0_0_40px_rgba(130,69,236,0.25)]
               "
             >
-              <Icon
-                className={`${item.color} mb-5`}
-                size={32}
-              />
+              <div
+                className="
+                  mb-5
+                  flex
+                  h-14
+                  w-14
+                  items-center
+                  justify-center
+                  rounded-2xl
+                  bg-white/5
+                "
+              >
+                <Icon
+                  className={item.color}
+                  size={30}
+                />
+              </div>
 
               <h3 className="text-4xl font-bold text-white">
                 {item.value}
