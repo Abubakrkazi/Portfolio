@@ -1,9 +1,9 @@
-import Blogs from "@/components/Blogs";
+import Contact from "@/components/Contact";
 
-export default function BlogsPage() {
+export default function ContactPage() {
   return (
     <main className="min-h-screen bg-[var(--background)] pt-20 text-[var(--foreground)]">
-      <Blogs />
+      <Contact />
     </main>
   );
 }

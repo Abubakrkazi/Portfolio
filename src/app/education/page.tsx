@@ -1,9 +1,9 @@
-import Blogs from "@/components/Blogs";
+import Education from "@/components/Education";
 
-export default function BlogsPage() {
+export default function EducationPage() {
   return (
     <main className="min-h-screen bg-[var(--background)] pt-20 text-[var(--foreground)]">
-      <Blogs />
+      <Education />
     </main>
   );
 }

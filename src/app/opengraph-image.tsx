@@ -43,7 +43,7 @@ export default function Image() {
             color: "#d4d4d8",
           }}
         >
-          Full Stack Developer
+         Software Engineer
         </div>
 
         <div

@@ -1,9 +1,9 @@
-import Blogs from "@/components/Blogs";
+import About from "@/components/About";
 
-export default function BlogsPage() {
+export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[var(--background)] pt-20 text-[var(--foreground)]">
-      <Blogs />
+      <About />
     </main>
   );
 }

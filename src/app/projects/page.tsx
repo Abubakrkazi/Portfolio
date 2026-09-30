@@ -1,7 +1,9 @@
-export default function ProjectDetailsPage() {
+import Projects from "@/components/Projects";
+
+export default function ProjectsPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center text-white">
-      Project Details Page
-    </div>
+    <main className="min-h-screen bg-[var(--background)] pt-20 text-[var(--foreground)]">
+      <Projects />
+    </main>
   );
 }

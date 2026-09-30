@@ -1,9 +1,9 @@
-import Blogs from "@/components/Blogs";
+import Experience from "@/components/Experience";
 
-export default function BlogsPage() {
+export default function ExperiencePage() {
   return (
     <main className="min-h-screen bg-[var(--background)] pt-20 text-[var(--foreground)]">
-      <Blogs />
+      <Experience />
     </main>
   );
 }

@@ -1,23 +1,30 @@
 import "./globals.css";
+
 import type { Metadata } from "next";
+
 import { siteConfig } from "@/lib/seo";
+
 import ThemeProvider from "@/components/providers/ThemeProvider";
 import JsonLd from "@/components/seo/JsonLd";
+import Navbar from "@/components/Navbar";
+
 export const viewport = {
   themeColor: "#050414",
 };
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
-verification: {
-  google: "YOUR_GOOGLE_VERIFICATION_CODE",
-},
+
+  verification: {
+    google: "YOUR_GOOGLE_VERIFICATION_CODE",
+  },
+
   title: {
     default: siteConfig.title,
     template: `%s | ${siteConfig.name}`,
   },
 
   description: siteConfig.description,
-
   keywords: siteConfig.keywords,
 
   authors: [
@@ -29,9 +36,7 @@ verification: {
 
   creator: siteConfig.author,
   publisher: siteConfig.author,
-
   applicationName: siteConfig.name,
-
   category: "technology",
 
   robots: {
@@ -57,9 +62,7 @@ verification: {
     description: siteConfig.description,
     url: siteConfig.url,
     siteName: siteConfig.name,
-
     locale: "en_US",
-
     type: "website",
 
     images: [
@@ -74,45 +77,38 @@ verification: {
 
   twitter: {
     card: "summary_large_image",
-
     title: siteConfig.title,
-
     description: siteConfig.description,
-
     creator: "@Abubakrkazi",
-
     images: [siteConfig.ogImage],
   },
 
-icons: {
-  icon: [
-    {
-      url: "/favicon-16x16.png",
-      sizes: "16x16",
-      type: "image/png",
-    },
-    {
-      url: "/favicon-32x32.png",
-      sizes: "32x32",
-      type: "image/png",
-    },
-    {
-      url: "/favicon.ico",
-    },
-  ],
+  icons: {
+    icon: [
+      {
+        url: "/favicon.ico",
+      },
+      {
+        url: "/favicon-96x96.png",
+        sizes: "96x96",
+        type: "image/png",
+      },
+    ],
 
-  apple: [
-    {
-      url: "/apple-touch-icon.png",
-      sizes: "180x180",
-      type: "image/png",
-    },
-  ],
+    apple: [
+      {
+        url: "/apple-touch-icon.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+    ],
 
-  shortcut: "/favicon.ico",
-},
-manifest: "/site.webmanifest",
+    shortcut: "/favicon.ico",
+  },
+
+  manifest: "/site.webmanifest",
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -120,17 +116,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
- <body className="antialiased">
-  <ThemeProvider
-    attribute="class"
-    defaultTheme="dark"
-    enableSystem={false}
-    disableTransitionOnChange
-  >
-    <JsonLd />
-    {children}
-  </ThemeProvider>
-</body>
+      <body className="antialiased">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <JsonLd />
+          <Navbar />
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

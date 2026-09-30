@@ -1,8 +1,10 @@
 "use client";
+
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
+
 import {
   Mail,
   Phone,
@@ -21,6 +23,7 @@ export default function Contact() {
   const form = useRef<HTMLFormElement>(null);
 
   const [loading, setLoading] = useState(false);
+
   const [status, setStatus] = useState<{
     type: "success" | "error" | "";
     message: string;
@@ -28,246 +31,310 @@ export default function Contact() {
     type: "",
     message: "",
   });
- const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
-   e.preventDefault();
 
-   setStatus({
-     type: "",
-     message: "",
-   });
+  const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-   if (!form.current) return;
+    setStatus({
+      type: "",
+      message: "",
+    });
 
-   try {
-     setLoading(true);
+    if (!form.current) return;
 
-     await emailjs.sendForm(
-       process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-       process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-       form.current,
-       process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
-     );
+    try {
+      setLoading(true);
 
-     setStatus({
-       type: "success",
-       message: "🎉 Thank you! Your message has been sent successfully.",
-     });
+      await emailjs.sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        form.current,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      );
 
-     setTimeout(() => {
-       setStatus({
-         type: "",
-         message: "",
-       });
-     }, 5000);
-     form.current.reset();
-   } catch (error) {
-     console.error("EMAILJS ERROR:", error);
+      setStatus({
+        type: "success",
+        message: "🎉 Thank you! Your message has been sent successfully.",
+      });
 
-     setStatus({
-       type: "error",
-       message: "❌ Failed to send message. Please try again.",
-     });
-   } finally {
-     setLoading(false);
-   }
- };
+      form.current.reset();
+
+      setTimeout(() => {
+        setStatus({
+          type: "",
+          message: "",
+        });
+      }, 5000);
+    } catch (error) {
+      console.error("EMAILJS ERROR:", error);
+
+      setStatus({
+        type: "error",
+        message: "❌ Failed to send message. Please try again.",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const contactItemClass = `
+    flex
+    items-center
+    gap-4
+    rounded-2xl
+    border
+    border-slate-200
+    bg-white
+    p-5
+    transition-all
+    duration-300
+    hover:border-[#8245EC]
+    hover:bg-[#8245EC]/5
+    dark:border-white/10
+    dark:bg-[#081b29]
+    dark:hover:bg-[#8245EC]/10
+  `;
+
+  const socialClass = `
+    group
+    flex
+    flex-col
+    items-center
+    justify-center
+    rounded-2xl
+    border
+    border-slate-200
+    bg-white
+    p-5
+    transition-all
+    duration-300
+    hover:-translate-y-2
+    hover:border-[#8245EC]
+    hover:bg-[#8245EC]/5
+    dark:border-white/10
+    dark:bg-[#081b29]
+    dark:hover:bg-[#8245EC]/10
+  `;
+
+  const inputClass = `
+    w-full
+    rounded-xl
+    border
+    border-slate-200
+    bg-white
+    p-4
+    text-slate-900
+    outline-none
+    transition-all
+    duration-300
+    placeholder:text-slate-400
+    focus:border-[#8245EC]
+    focus:ring-2
+    focus:ring-[#8245EC]/10
+    dark:border-white/10
+    dark:bg-[#081b29]
+    dark:text-white
+    dark:placeholder:text-gray-500
+  `;
 
   return (
-    <section id="contact" className="bg-[#081b29] py-28">
+    <section
+      id="contact"
+      className="
+        bg-white
+        py-28
+        text-slate-900
+        transition-colors
+        duration-300
+        dark:bg-[#081b29]
+        dark:text-white
+      "
+    >
       <Container>
         <AnimatedSection>
           {/* Heading */}
-
           <div className="text-center">
             <p className="font-semibold uppercase tracking-[6px] text-[#8245EC]">
               Contact
             </p>
 
-            <h2 className="mt-4 text-4xl font-black text-white md:text-5xl">
+            <h2 className="mt-4 text-4xl font-black text-slate-900 md:text-5xl dark:text-white">
               Get In Touch
             </h2>
 
-            <p className="mx-auto mt-6 max-w-2xl leading-8 text-gray-400">
-             Have a project in mind, an opportunity to discuss, or simply want to connect? I'd love to hear from you.
+            <p className="mx-auto mt-6 max-w-2xl leading-8 text-slate-600 dark:text-gray-400">
+              Have a project in mind, an opportunity to discuss, or simply want
+              to connect? I'd love to hear from you.
             </p>
           </div>
 
           <div className="mt-20 grid gap-10 lg:grid-cols-2">
             {/* LEFT */}
-
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               className="
-              rounded-3xl
-              border
-              border-white/10
-              bg-white/5
-              p-8
-              backdrop-blur-xl
+                rounded-3xl
+                border
+                border-slate-200
+                bg-slate-50
+                p-8
+                shadow-sm
+                backdrop-blur-xl
+                dark:border-white/10
+                dark:bg-white/5
+                dark:shadow-none
               "
             >
-              <h3 className="text-3xl font-bold text-white">
-             Let's Connect
+              <h3 className="text-3xl font-bold text-slate-900 dark:text-white">
+                Let's Connect
               </h3>
 
-              <p className="mt-4 leading-7 text-gray-400">
-             I'm always open to discussing new projects, professional opportunities, and interesting ideas. Feel free to reach out through email or connect with me on social media.
+              <p className="mt-4 leading-7 text-slate-600 dark:text-gray-400">
+                I'm always open to discussing new projects, professional
+                opportunities, and interesting ideas. Feel free to reach out
+                through email or connect with me on social media.
               </p>
 
               <div className="mt-10 space-y-5">
                 {/* Email */}
-
                 <Link
                   href="mailto:kaziabubakr87@gmail.com"
-                  className="
-                  flex
-                  items-center
-                  gap-4
-                  rounded-2xl
-                  border
-                  border-white/10
-                  bg-[#081b29]
-                  p-5
-                  transition-all
-                  duration-300
-                  hover:border-[#8245EC]
-                  hover:bg-[#8245EC]/10
-                  "
+                  className={contactItemClass}
                 >
-                  <Mail size={24} className="text-[#8245EC]" />
+                  <Mail size={24} className="shrink-0 text-[#8245EC]" />
 
                   <div>
-                    <h4 className="font-semibold text-white">Email</h4>
+                    <h4 className="font-semibold text-slate-900 dark:text-white">
+                      Email
+                    </h4>
 
-                    <p className="text-gray-400 text-sm">
+                    <p className="break-all text-sm text-slate-600 dark:text-gray-400">
                       kaziabubakr87@gmail.com
                     </p>
                   </div>
                 </Link>
 
                 {/* Phone */}
-
                 <Link
                   href="tel:+8801615665136"
-                  className="
-                  flex
-                  items-center
-                  gap-4
-                  rounded-2xl
-                  border
-                  border-white/10
-                  bg-[#081b29]
-                  p-5
-                  transition-all
-                  duration-300
-                  hover:border-[#8245EC]
-                  hover:bg-[#8245EC]/10
-                  "
+                  className={contactItemClass}
                 >
-                  <Phone size={24} className="text-[#8245EC]" />
+                  <Phone size={24} className="shrink-0 text-[#8245EC]" />
 
                   <div>
-                    <h4 className="font-semibold text-white">Phone</h4>
+                    <h4 className="font-semibold text-slate-900 dark:text-white">
+                      Phone
+                    </h4>
 
-                    <p className="text-gray-400 text-sm">+8801615665136</p>
+                    <p className="text-sm text-slate-600 dark:text-gray-400">
+                      +8801615665136
+                    </p>
                   </div>
                 </Link>
 
                 {/* Location */}
-
-                <div
-                  className="
-                  flex
-                  items-center
-                  gap-4
-                  rounded-2xl
-                  border
-                  border-white/10
-                  bg-[#081b29]
-                  p-5
-                  "
-                >
-                  <MapPin size={24} className="text-[#8245EC]" />
+                <div className={contactItemClass}>
+                  <MapPin size={24} className="shrink-0 text-[#8245EC]" />
 
                   <div>
-                    <h4 className="font-semibold text-white">Location</h4>
+                    <h4 className="font-semibold text-slate-900 dark:text-white">
+                      Location
+                    </h4>
 
-                    <p className="text-gray-400 text-sm">Dhaka, Bangladesh</p>
+                    <p className="text-sm text-slate-600 dark:text-gray-400">
+                      Dhaka, Bangladesh
+                    </p>
                   </div>
                 </div>
 
+                {/* Social */}
                 <div className="pt-6">
-                  <h3 className="text-2xl font-bold text-white">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
                     Connect With Me
                   </h3>
 
-                  <div className="mt-6 grid grid-cols-3 gap-4">
-                    {/* GitHub */}
-
+                  <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
                     <Link
                       href="https://github.com/Abubakrkazi"
                       target="_blank"
-                      className="group flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-[#081b29] p-5 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]/10"
+                      rel="noopener noreferrer"
+                      className={socialClass}
                     >
                       <Github size={30} className="text-[#8245EC]" />
-                      <span className="mt-2 text-sm text-white">GitHub</span>
-                    </Link>
 
-                    {/* LinkedIn */}
+                      <span className="mt-2 text-sm text-slate-900 dark:text-white">
+                        GitHub
+                      </span>
+                    </Link>
 
                     <Link
                       href="https://linkedin.com/in/abubakr-kazi"
                       target="_blank"
-                      className="group flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-[#081b29] p-5 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]/10"
+                      rel="noopener noreferrer"
+                      className={socialClass}
                     >
                       <Linkedin size={30} className="text-[#8245EC]" />
-                      <span className="mt-2 text-sm text-white">LinkedIn</span>
-                    </Link>
 
-                    {/* Facebook */}
+                      <span className="mt-2 text-sm text-slate-900 dark:text-white">
+                        LinkedIn
+                      </span>
+                    </Link>
 
                     <Link
                       href="https://facebook.com/kazi.abir.4878"
                       target="_blank"
-                      className="group flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-[#081b29] p-5 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]/10"
+                      rel="noopener noreferrer"
+                      className={socialClass}
                     >
                       <Facebook size={30} className="text-[#8245EC]" />
-                      <span className="mt-2 text-sm text-white">Facebook</span>
+
+                      <span className="mt-2 text-sm text-slate-900 dark:text-white">
+                        Facebook
+                      </span>
                     </Link>
-
-                    {/* Instagram */}
-
-                    <Link
-                      href="https://x.com/KAZIABIR4VAI"
-                      target="_blank"
-                      className="group flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-[#081b29] p-5 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]/10"
-                    >
-                      <Instagram size={30} className="text-[#8245EC]" />
-                      <span className="mt-2 text-sm text-white">Instagram</span>
-                    </Link>
-
-                    {/* X */}
 
                     <Link
                       href="https://www.instagram.com/kaziabir4878?igsh=dzZyOXNwdXB6dnJ6"
                       target="_blank"
-                      className="group flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-[#081b29] p-5 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]/10"
+                      rel="noopener noreferrer"
+                      className={socialClass}
                     >
-                      <Twitter size={30} className="text-[#8245EC]" />
-                      <span className="mt-2 text-sm text-white">X</span>
+                      <Instagram size={30} className="text-[#8245EC]" />
+
+                      <span className="mt-2 text-sm text-slate-900 dark:text-white">
+                        Instagram
+                      </span>
                     </Link>
 
-                    {/* WhatsApp */}
+                    <Link
+                      href="https://x.com/KAZIABIR4VAI"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={socialClass}
+                    >
+                      <Twitter size={30} className="text-[#8245EC]" />
+
+                      <span className="mt-2 text-sm text-slate-900 dark:text-white">
+                        X
+                      </span>
+                    </Link>
 
                     <Link
                       href="https://wa.me/8801615665136"
                       target="_blank"
-                      className="group flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-[#081b29] p-5 transition-all duration-300 hover:-translate-y-2 hover:border-[#8245EC] hover:bg-[#8245EC]/10"
+                      rel="noopener noreferrer"
+                      className={socialClass}
                     >
-                      <MessageCircle size={30} className="text-[#8245EC]" />
-                      <span className="mt-2 text-sm text-white">WhatsApp</span>
+                      <MessageCircle
+                        size={30}
+                        className="text-[#8245EC]"
+                      />
+
+                      <span className="mt-2 text-sm text-slate-900 dark:text-white">
+                        WhatsApp
+                      </span>
                     </Link>
                   </div>
                 </div>
@@ -275,7 +342,6 @@ export default function Contact() {
             </motion.div>
 
             {/* RIGHT */}
-
             <motion.form
               ref={form}
               onSubmit={sendEmail}
@@ -283,17 +349,23 @@ export default function Contact() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               className="
-              rounded-3xl
-              border
-              border-white/10
-              bg-white/5
-              p-8
-              backdrop-blur-xl
+                rounded-3xl
+                border
+                border-slate-200
+                bg-slate-50
+                p-8
+                shadow-sm
+                backdrop-blur-xl
+                dark:border-white/10
+                dark:bg-white/5
+                dark:shadow-none
               "
             >
-              <h3 className="text-3xl font-bold text-white">Send Message</h3>
+              <h3 className="text-3xl font-bold text-slate-900 dark:text-white">
+                Send Message
+              </h3>
 
-              <p className="mt-4 text-gray-400">
+              <p className="mt-4 text-slate-600 dark:text-gray-400">
                 Fill in the form below and I'll reply as soon as possible.
               </p>
 
@@ -303,20 +375,7 @@ export default function Contact() {
                   name="from_name"
                   placeholder="Your Name"
                   required
-                  className="
-    w-full
-    rounded-xl
-    border
-    border-white/10
-    bg-[#081b29]
-    p-4
-    text-white
-    outline-none
-    transition-all
-    duration-300
-    placeholder:text-gray-500
-    focus:border-[#8245EC]
-  "
+                  className={inputClass}
                 />
 
                 <input
@@ -324,20 +383,7 @@ export default function Contact() {
                   name="from_email"
                   placeholder="Your Email"
                   required
-                  className="
-    w-full
-    rounded-xl
-    border
-    border-white/10
-    bg-[#081b29]
-    p-4
-    text-white
-    outline-none
-    transition-all
-    duration-300
-    placeholder:text-gray-500
-    focus:border-[#8245EC]
-  "
+                  className={inputClass}
                 />
 
                 <input
@@ -345,51 +391,31 @@ export default function Contact() {
                   name="subject"
                   placeholder="Subject"
                   required
-                  className="
-    w-full
-    rounded-xl
-    border
-    border-white/10
-    bg-[#081b29]
-    p-4
-    text-white
-    outline-none
-    transition-all
-    duration-300
-    placeholder:text-gray-500
-    focus:border-[#8245EC]
-  "
+                  className={inputClass}
                 />
+
                 <textarea
                   name="message"
                   rows={6}
                   placeholder="Write your message..."
                   required
-                  className="
-    w-full
-    rounded-xl
-    border
-    border-white/10
-    bg-[#081b29]
-    p-4
-    text-white
-    outline-none
-    transition-all
-    duration-300
-    placeholder:text-gray-500
-    focus:border-[#8245EC]
-  "
+                  className={inputClass}
                 />
 
-                <Button type="submit" className="w-full">
+                <Button
+                  type="submit"
+                  className="w-full justify-center"
+                  disabled={loading}
+                >
                   {loading ? "Sending..." : "Send Message"}
                 </Button>
+
                 {status.message && (
                   <p
                     className={`mt-4 text-center text-sm font-medium ${
                       status.type === "success"
-                        ? "text-green-400"
-                        : "text-red-400"
+                        ? "text-green-500 dark:text-green-400"
+                        : "text-red-500 dark:text-red-400"
                     }`}
                   >
                     {status.message}
