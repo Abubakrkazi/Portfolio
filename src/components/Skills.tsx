@@ -114,35 +114,89 @@ export default function Skills() {
     <section
       id="skills"
       className="
+        w-full
+        overflow-hidden
         bg-white
-        py-28
+        py-16
         text-slate-900
         transition-colors
         duration-300
+        sm:py-20
+        md:py-24
+        lg:py-28
         dark:bg-[#081b29]
         dark:text-white
       "
     >
       <Container>
         <AnimatedSection>
-          {/* Heading */}
-          <div className="text-center">
-            <p className="font-semibold uppercase tracking-[6px] text-[#8245EC]">
+          {/* ================= HEADING ================= */}
+          <div className="mx-auto w-full max-w-3xl px-1 text-center sm:px-0">
+            <p
+              className="
+                text-xs
+                font-semibold
+                uppercase
+                tracking-[4px]
+                text-[#8245EC]
+                sm:text-sm
+                sm:tracking-[6px]
+              "
+            >
               My Skills
             </p>
 
-            <h2 className="mt-4 text-4xl font-black text-slate-900 md:text-5xl dark:text-white">
+            <h2
+              className="
+                mt-3
+                text-3xl
+                font-black
+                text-slate-900
+                sm:mt-4
+                sm:text-4xl
+                md:text-5xl
+                dark:text-white
+              "
+            >
               Tech Stack
             </h2>
 
-            <p className="mx-auto mt-6 max-w-2xl leading-8 text-slate-600 dark:text-gray-400">
+            <p
+              className="
+                mx-auto
+                mt-4
+                max-w-2xl
+                text-sm
+                leading-6
+                text-slate-600
+                sm:mt-6
+                sm:text-base
+                sm:leading-8
+                dark:text-gray-400
+              "
+            >
               The technologies and tools I use to build modern, scalable, and
               high-performance web applications.
             </p>
           </div>
 
-          {/* Skills Grid */}
-          <div className="mt-20 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {/* ================= SKILLS GRID ================= */}
+          <div
+            className="
+              mt-10
+              grid
+              w-full
+              grid-cols-2
+              gap-3
+              sm:mt-14
+              sm:gap-5
+              md:mt-16
+              md:grid-cols-3
+              md:gap-6
+              lg:mt-20
+              lg:grid-cols-4
+            "
+          >
             {skills.map((skill, index) => {
               const Icon = skill.icon;
 
@@ -151,7 +205,7 @@ export default function Skills() {
                   key={skill.name}
                   initial={{
                     opacity: 0,
-                    y: 40,
+                    y: 30,
                   }}
                   whileInView={{
                     opacity: 1,
@@ -159,47 +213,81 @@ export default function Skills() {
                   }}
                   viewport={{
                     once: true,
+                    amount: 0.15,
                   }}
                   transition={{
-                    duration: 0.5,
-                    delay: index * 0.05,
+                    duration: 0.4,
+                    delay: index * 0.04,
                   }}
                   whileHover={{
-                    scale: 1.06,
-                    y: -8,
+                    y: -6,
                   }}
                   className="
                     group
-                    rounded-3xl
+                    flex
+                    min-w-0
+                    w-full
+                    flex-col
+                    items-center
+                    justify-center
+                    overflow-hidden
+                    rounded-2xl
                     border
                     border-slate-200
                     bg-slate-50
-                    p-8
+                    px-2
+                    py-5
                     text-center
                     shadow-sm
-                    backdrop-blur-xl
                     transition-all
                     duration-300
+
                     hover:border-[#8245EC]
-                    hover:shadow-[0_0_30px_rgba(130,69,236,.25)]
+                    hover:shadow-[0_0_25px_rgba(130,69,236,.20)]
+
+                    sm:rounded-3xl
+                    sm:px-4
+                    sm:py-7
+
+                    md:p-8
+
                     dark:border-white/10
                     dark:bg-white/5
                     dark:shadow-none
-                    dark:hover:shadow-[0_0_30px_rgba(130,69,236,.35)]
+                    dark:hover:border-[#8245EC]
+                    dark:hover:shadow-[0_0_30px_rgba(130,69,236,.30)]
                   "
                 >
+                  {/* Icon */}
                   <Icon
                     className={`
-                      mx-auto
-                      text-6xl
-                      transition
+                      text-4xl
+                      transition-transform
                       duration-300
                       group-hover:scale-110
+                      sm:text-5xl
+                      md:text-6xl
                       ${skill.color}
                     `}
                   />
 
-                  <h3 className="mt-6 text-lg font-semibold text-slate-900 dark:text-white">
+                  {/* Skill Name */}
+                  <h3
+                    className="
+                      mt-3
+                      max-w-full
+                      break-words
+                      text-sm
+                      font-semibold
+                      leading-5
+                      text-slate-900
+                      sm:mt-5
+                      sm:text-base
+                      md:mt-6
+                      md:text-lg
+                      dark:text-white
+                    "
+                  >
                     {skill.name}
                   </h3>
                 </motion.div>
