@@ -41,27 +41,8 @@ const references: Reference[] = [
     type: "Academic Reference",
     icon: GraduationCap,
   },
-  {
-    name: "Sudipto Chaki",
-    role: "Assistant Professor",
-    department: "Department of Computer Science & Engineering",
-    organization:
-      "Bangladesh University of Business and Technology (BUBT)",
-    additionalRole: "Director (Acting) — BUBT TAFE",
-    email: "sudipto@bubt.edu.bd",
-    type: "Academic Reference",
-    icon: GraduationCap,
-  },
-  {
-    name: "M. A. Nur Quraishi",
-    role: "Lecturer",
-    department: "Department of Computer Science & Engineering",
-    organization:
-      "Bangladesh University of Business and Technology (BUBT)",
-    email: "nurquraishi@bubt.edu.bd",
-    type: "Academic Reference",
-    icon: GraduationCap,
-  },
+
+
   {
     name: "Ashifur Rahman",
     role: "Lecturer",
