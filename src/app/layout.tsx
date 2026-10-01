@@ -1,6 +1,7 @@
 import "./globals.css";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 
 import { siteConfig } from "@/lib/seo";
 
@@ -8,16 +9,12 @@ import ThemeProvider from "@/components/providers/ThemeProvider";
 import JsonLd from "@/components/seo/JsonLd";
 import Navbar from "@/components/Navbar";
 
-export const viewport = {
+export const viewport: Viewport = {
   themeColor: "#050414",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
-
-  verification: {
-    google: "YOUR_GOOGLE_VERIFICATION_CODE",
-  },
 
   title: {
     default: siteConfig.title,
@@ -42,7 +39,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    nocache: false,
 
     googleBot: {
       index: true,
@@ -109,11 +105,13 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<RootLayoutProps>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -128,6 +126,7 @@ export default function RootLayout({
         >
           <JsonLd />
           <Navbar />
+
           {children}
         </ThemeProvider>
       </body>

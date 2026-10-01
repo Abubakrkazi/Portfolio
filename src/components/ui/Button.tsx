@@ -1,57 +1,90 @@
 "use client";
 
-import { motion } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+  type HTMLMotionProps,
+} from "framer-motion";
 
-interface Props {
-  children: React.ReactNode;
-  onClick?: () => void;
-  type?: "button" | "submit" | "reset";
+import type { ReactNode } from "react";
+
+interface PrimaryButtonProps
+  extends Omit<
+    HTMLMotionProps<"button">,
+    "children"
+  > {
+  children: ReactNode;
   className?: string;
-  disabled?: boolean;
 }
 
-export default function Button({
+export default function PrimaryButton({
   children,
-  type = "button",
-  onClick,
   className = "",
+  type = "button",
   disabled = false,
-}: Props) {
+  ...props
+}: PrimaryButtonProps) {
+  const shouldReduceMotion =
+    useReducedMotion();
+
   return (
     <motion.button
+      {...props}
+      type={type}
+      disabled={disabled}
       whileHover={
-        disabled
-          ? {}
+        disabled || shouldReduceMotion
+          ? undefined
           : {
-              scale: 1.05,
+              scale: 1.02,
+              y: -2,
             }
       }
       whileTap={
-        disabled
-          ? {}
+        disabled || shouldReduceMotion
+          ? undefined
           : {
-              scale: 0.96,
+              scale: 0.98,
             }
       }
       transition={{
         duration: 0.2,
+        ease: "easeOut",
       }}
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
       className={`
-        rounded-full
+        inline-flex
+        min-h-11
+        items-center
+        justify-center
+        gap-2
+        rounded-xl
         bg-[#8245EC]
-        px-8
-        py-4
+        px-5
+        py-2.5
+        text-sm
         font-semibold
         text-white
-        shadow-lg
-        transition
-        hover:shadow-[0_0_30px_rgba(130,69,236,.45)]
+        shadow-[0_8px_25px_rgba(130,69,236,0.22)]
+        transition-colors
+        duration-300
+
+        hover:bg-[#7338df]
+
+        focus-visible:outline-none
+        focus-visible:ring-2
+        focus-visible:ring-[#8245EC]
+        focus-visible:ring-offset-2
+
+        disabled:pointer-events-none
         disabled:cursor-not-allowed
         disabled:opacity-50
-        disabled:hover:shadow-none
+
+        dark:focus-visible:ring-offset-[#050414]
+
+        sm:px-6
+        sm:py-3
+        sm:text-base
+
         ${className}
       `}
     >

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   BriefcaseBusiness,
   GraduationCap,
@@ -36,13 +36,10 @@ const references: Reference[] = [
     additionalRole: "Assistant Proctor — Office of The Proctor",
     relationship: "Capstone Project Supervisor",
     email: "azgar@bubt.edu.bd",
-    image:
-      "https://bubt.edu.bd/storage/faculty_images/ali-azgar_18020332029_aaa4a112-a74e-473c-b5ff-33a3daa01b55.jpg",
+   
     type: "Academic Reference",
     icon: GraduationCap,
   },
-
-
   {
     name: "Ashifur Rahman",
     role: "Lecturer",
@@ -65,27 +62,86 @@ const references: Reference[] = [
 ];
 
 export default function Testimonials() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section
       id="testimonials"
       className="
+        relative
+        w-full
+        overflow-hidden
         bg-white
-        py-28
+        py-16
+        text-slate-900
         transition-colors
         duration-300
+
+        sm:py-20
+        md:py-24
+        lg:py-28
+
         dark:bg-[#081b29]
+        dark:text-white
       "
     >
+      {/* ================= BACKGROUND ================= */}
+
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          -left-40
+          top-20
+          h-80
+          w-80
+          rounded-full
+          bg-[#8245EC]/5
+          blur-[110px]
+
+          dark:bg-[#8245EC]/10
+        "
+      />
+
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          -right-40
+          bottom-20
+          h-80
+          w-80
+          rounded-full
+          bg-cyan-400/5
+          blur-[110px]
+        "
+      />
+
       <Container>
         <AnimatedSection>
           {/* ================= HEADING ================= */}
-          <div className="text-center">
+
+          <div
+            className="
+              relative
+              z-10
+              mx-auto
+              max-w-3xl
+              text-center
+            "
+          >
             <p
               className="
+                text-xs
                 font-semibold
                 uppercase
-                tracking-[6px]
+                tracking-[4px]
                 text-[#8245EC]
+
+                sm:text-sm
+                sm:tracking-[6px]
               "
             >
               References
@@ -93,11 +149,17 @@ export default function Testimonials() {
 
             <h2
               className="
-                mt-4
-                text-4xl
+                mt-3
+                text-3xl
                 font-black
+                tracking-tight
                 text-slate-900
+
+                sm:mt-4
+                sm:text-4xl
+
                 md:text-5xl
+
                 dark:text-white
               "
             >
@@ -107,20 +169,46 @@ export default function Testimonials() {
             <p
               className="
                 mx-auto
-                mt-6
+                mt-4
                 max-w-2xl
-                leading-8
+                text-sm
+                leading-7
                 text-slate-600
+
+                sm:mt-6
+                sm:text-base
+                sm:leading-8
+
                 dark:text-gray-400
               "
             >
-              Academic and professional references connected to my
-              education, technical development, and professional journey.
+              Academic and professional references connected to my education,
+              technical development, and professional journey.
             </p>
           </div>
 
           {/* ================= CARDS ================= */}
-          <div className="mt-20 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+
+          <div
+            className="
+              relative
+              z-10
+              mt-10
+              grid
+              grid-cols-1
+              gap-5
+
+              sm:mt-14
+              sm:gap-6
+
+              md:mt-16
+              md:grid-cols-2
+
+              xl:mt-20
+              xl:grid-cols-3
+              xl:gap-7
+            "
+          >
             {references.map((item, index) => {
               const Icon = item.icon;
 
@@ -129,7 +217,7 @@ export default function Testimonials() {
                   key={item.name}
                   initial={{
                     opacity: 0,
-                    y: 40,
+                    y: 30,
                   }}
                   whileInView={{
                     opacity: 1,
@@ -137,77 +225,121 @@ export default function Testimonials() {
                   }}
                   viewport={{
                     once: true,
-                    amount: 0.2,
+                    amount: 0.15,
                   }}
                   transition={{
-                    duration: 0.5,
-                    delay: index * 0.1,
+                    duration: 0.45,
+                    delay: Math.min(index * 0.08, 0.2),
+                    ease: "easeOut",
                   }}
-                  whileHover={{
-                    y: -8,
-                  }}
+                  whileHover={
+                    shouldReduceMotion
+                      ? undefined
+                      : {
+                          y: -5,
+                        }
+                  }
                   className={`
                     group
                     relative
                     flex
-                    h-full
+                    min-w-0
                     flex-col
                     overflow-hidden
-                    rounded-3xl
+                    rounded-2xl
                     border
                     bg-slate-50/80
-                    p-8
+                    p-4
                     shadow-sm
-                    backdrop-blur-xl
                     transition-all
                     duration-300
-                    hover:border-[#8245EC]
-                    hover:shadow-[0_20px_50px_rgba(130,69,236,0.15)]
-                    dark:bg-white/5
+
+                    hover:border-[#8245EC]/60
+                    hover:bg-white
+                    hover:shadow-[0_18px_45px_rgba(130,69,236,0.12)]
+
+                    sm:rounded-3xl
+                    sm:p-6
+
+                    lg:p-7
+
+                    dark:bg-white/[0.04]
                     dark:shadow-none
-                    dark:hover:shadow-[0_0_40px_rgba(130,69,236,0.25)]
+                    dark:hover:border-[#8245EC]/70
+                    dark:hover:bg-white/[0.055]
+                    dark:hover:shadow-[0_18px_45px_rgba(130,69,236,0.16)]
+
                     ${
                       item.relationship
-                        ? "border-[#8245EC]/40 dark:border-[#8245EC]/40"
-                        : "border-slate-200 dark:border-white/10"
+                        ? `
+                          border-[#8245EC]/35
+                          dark:border-[#8245EC]/40
+                        `
+                        : `
+                          border-slate-200
+                          dark:border-white/10
+                        `
                     }
                   `}
                 >
                   {/* Background Glow */}
+
                   <div
+                    aria-hidden="true"
                     className="
                       pointer-events-none
                       absolute
-                      -right-16
-                      -top-16
-                      h-44
-                      w-44
+                      -right-20
+                      -top-20
+                      h-40
+                      w-40
                       rounded-full
-                      bg-[#8245EC]/10
+                      bg-[#8245EC]/5
                       blur-3xl
                       transition-all
                       duration-500
-                      group-hover:bg-[#8245EC]/20
+
+                      group-hover:bg-[#8245EC]/10
+
+                      dark:bg-[#8245EC]/10
+                      dark:group-hover:bg-[#8245EC]/15
                     "
                   />
 
                   {/* ================= TOP ================= */}
-                  <div className="relative flex items-start justify-between gap-4">
+
+                  <div
+                    className="
+                      relative
+                      flex
+                      min-w-0
+                      items-start
+                      justify-between
+                      gap-3
+
+                      sm:gap-4
+                    "
+                  >
                     {/* Profile */}
+
                     {item.image ? (
                       <div
                         className="
                           relative
-                          h-16
-                          w-16
+                          h-14
+                          w-14
                           shrink-0
                           overflow-hidden
                           rounded-2xl
-                          border-2
+                          border
                           border-[#8245EC]/40
                           bg-slate-100
-                          shadow-[0_10px_30px_rgba(130,69,236,0.20)]
-                          dark:bg-white/5
+                          shadow-[0_8px_22px_rgba(130,69,236,0.16)]
+
+                          sm:h-16
+                          sm:w-16
+
+                          dark:bg-white/[0.05]
                         "
                       >
                         <Image
@@ -216,15 +348,20 @@ export default function Testimonials() {
                           fill
                           priority={index === 0}
                           unoptimized
-                          className="object-cover object-top"
+                          sizes="64px"
+                          className="
+                            object-cover
+                            object-top
+                          "
                         />
                       </div>
                     ) : (
                       <div
+                        aria-hidden="true"
                         className="
                           flex
-                          h-16
-                          w-16
+                          h-14
+                          w-14
                           shrink-0
                           items-center
                           justify-center
@@ -232,29 +369,45 @@ export default function Testimonials() {
                           bg-gradient-to-br
                           from-[#8245EC]
                           to-purple-500
-                          text-2xl
+                          text-xl
                           font-black
                           text-white
-                          shadow-[0_10px_30px_rgba(130,69,236,0.30)]
+                          shadow-[0_8px_22px_rgba(130,69,236,0.22)]
+
+                          sm:h-16
+                          sm:w-16
+                          sm:text-2xl
                         "
                       >
                         {item.name.charAt(0)}
                       </div>
                     )}
 
-                    {/* Reference Type */}
+                    {/* Type */}
+
                     <span
                       className="
+                        max-w-[135px]
                         rounded-full
                         border
                         border-[#8245EC]/20
-                        bg-[#8245EC]/10
-                        px-3
+                        bg-[#8245EC]/[0.07]
+                        px-2.5
                         py-1.5
-                        text-right
-                        text-[11px]
-                        font-semibold
+                        text-center
+                        text-[9px]
+                        font-bold
+                        leading-4
                         text-[#8245EC]
+
+                        min-[375px]:max-w-none
+                        min-[375px]:text-[10px]
+
+                        sm:px-3
+                        sm:text-[11px]
+
+                        dark:bg-[#8245EC]/15
+                        dark:text-[#d8c3ff]
                       "
                     >
                       {item.type}
@@ -262,49 +415,89 @@ export default function Testimonials() {
                   </div>
 
                   {/* ================= RELATIONSHIP ================= */}
+
                   {item.relationship && (
                     <div
                       className="
                         relative
-                        mt-6
+                        mt-5
                         inline-flex
                         w-fit
+                        max-w-full
                         items-center
-                        gap-2
+                        gap-1.5
                         rounded-full
                         border
                         border-[#8245EC]/20
-                        bg-[#8245EC]/10
-                        px-3
+                        bg-[#8245EC]/[0.07]
+                        px-2.5
                         py-1.5
-                        text-xs
+                        text-[10px]
                         font-bold
+                        leading-4
                         text-[#8245EC]
+
+                        sm:mt-6
+                        sm:gap-2
+                        sm:px-3
+                        sm:text-xs
+
+                        dark:bg-[#8245EC]/15
+                        dark:text-[#d8c3ff]
                       "
                     >
-                      <ShieldCheck size={14} />
+                      <ShieldCheck
+                        size={14}
+                        className="shrink-0"
+                      />
 
-                      {item.relationship}
+                      <span className="break-words">
+                        {item.relationship}
+                      </span>
                     </div>
                   )}
 
                   {/* ================= NAME & ROLE ================= */}
-                  <div className="relative mt-6">
+
+                  <div
+                    className="
+                      relative
+                      mt-5
+                      min-w-0
+
+                      sm:mt-6
+                    "
+                  >
                     <h3
                       className="
-                        text-2xl
+                        break-words
+                        text-xl
                         font-bold
                         text-slate-900
                         transition-colors
                         duration-300
+
                         group-hover:text-[#8245EC]
+
+                        sm:text-2xl
+
                         dark:text-white
                       "
                     >
                       {item.name}
                     </h3>
 
-                    <p className="mt-2 font-semibold text-[#8245EC]">
+                    <p
+                      className="
+                        mt-1.5
+                        text-sm
+                        font-semibold
+                        text-[#8245EC]
+
+                        sm:mt-2
+                        sm:text-base
+                      "
+                    >
                       {item.role}
                     </p>
 
@@ -312,10 +505,13 @@ export default function Testimonials() {
                       <p
                         className="
                           mt-2
-                          text-sm
+                          text-xs
                           font-medium
                           leading-6
                           text-slate-600
+
+                          sm:text-sm
+
                           dark:text-gray-300
                         "
                       >
@@ -325,19 +521,51 @@ export default function Testimonials() {
                   </div>
 
                   {/* ================= DETAILS ================= */}
-                  <div className="relative mt-6 flex flex-1 flex-col gap-4">
+
+                  <div
+                    className="
+                      relative
+                      mt-5
+                      flex
+                      flex-1
+                      flex-col
+                      gap-3
+
+                      sm:mt-6
+                      sm:gap-4
+                    "
+                  >
                     {/* Department */}
-                    <div className="flex items-start gap-3">
+
+                    <div
+                      className="
+                        flex
+                        min-w-0
+                        items-start
+                        gap-2.5
+
+                        sm:gap-3
+                      "
+                    >
                       <UserRound
-                        size={18}
-                        className="mt-1 shrink-0 text-[#8245EC]"
+                        size={17}
+                        className="
+                          mt-1
+                          shrink-0
+                          text-[#8245EC]
+                        "
                       />
 
                       <p
                         className="
-                          text-sm
+                          min-w-0
+                          break-words
+                          text-xs
                           leading-6
                           text-slate-600
+
+                          sm:text-sm
+
                           dark:text-gray-400
                         "
                       >
@@ -346,17 +574,36 @@ export default function Testimonials() {
                     </div>
 
                     {/* Organization */}
-                    <div className="flex items-start gap-3">
+
+                    <div
+                      className="
+                        flex
+                        min-w-0
+                        items-start
+                        gap-2.5
+
+                        sm:gap-3
+                      "
+                    >
                       <Icon
-                        size={18}
-                        className="mt-1 shrink-0 text-[#8245EC]"
+                        size={17}
+                        className="
+                          mt-1
+                          shrink-0
+                          text-[#8245EC]
+                        "
                       />
 
                       <p
                         className="
-                          text-sm
+                          min-w-0
+                          break-words
+                          text-xs
                           leading-6
                           text-slate-600
+
+                          sm:text-sm
+
                           dark:text-gray-400
                         "
                       >
@@ -366,13 +613,18 @@ export default function Testimonials() {
                   </div>
 
                   {/* ================= CONTACT ================= */}
+
                   <div
                     className="
                       relative
-                      mt-8
+                      mt-6
                       border-t
                       border-slate-200
-                      pt-6
+                      pt-5
+
+                      sm:mt-8
+                      sm:pt-6
+
                       dark:border-white/10
                     "
                   >
@@ -383,15 +635,20 @@ export default function Testimonials() {
                         className="
                           group/email
                           flex
+                          min-w-0
                           items-center
-                          gap-3
-                          break-all
-                          text-sm
+                          gap-2.5
+                          text-xs
                           font-medium
                           text-slate-600
                           transition-colors
                           duration-300
+
                           hover:text-[#8245EC]
+
+                          sm:gap-3
+                          sm:text-sm
+
                           dark:text-gray-300
                           dark:hover:text-[#8245EC]
                         "
@@ -409,23 +666,35 @@ export default function Testimonials() {
                             text-[#8245EC]
                             transition-all
                             duration-300
+
                             group-hover/email:bg-[#8245EC]
                             group-hover/email:text-white
                           "
                         >
-                          <Mail size={17} />
+                          <Mail size={16} />
                         </span>
 
-                        <span>{item.email}</span>
+                        <span
+                          className="
+                            min-w-0
+                            break-all
+                          "
+                        >
+                          {item.email}
+                        </span>
                       </a>
                     ) : (
                       <div
                         className="
                           flex
                           items-center
-                          gap-3
-                          text-sm
+                          gap-2.5
+                          text-xs
                           text-slate-500
+
+                          sm:gap-3
+                          sm:text-sm
+
                           dark:text-gray-400
                         "
                       >
@@ -442,28 +711,61 @@ export default function Testimonials() {
                             text-[#8245EC]
                           "
                         >
-                          <BriefcaseBusiness size={17} />
+                          <BriefcaseBusiness size={16} />
                         </span>
 
-                        <span>Professional Reference</span>
+                        <span>
+                          Professional Reference
+                        </span>
                       </div>
                     )}
                   </div>
+
+                  {/* Bottom Accent */}
+
+                  <span
+                    aria-hidden="true"
+                    className="
+                      absolute
+                      bottom-0
+                      left-1/2
+                      h-[2px]
+                      w-0
+                      -translate-x-1/2
+                      bg-gradient-to-r
+                      from-[#8245EC]
+                      to-cyan-400
+                      transition-all
+                      duration-300
+
+                      group-hover:w-1/2
+                    "
+                  />
                 </motion.article>
               );
             })}
           </div>
 
           {/* ================= FOOT NOTE ================= */}
+
           <p
             className="
+              relative
+              z-10
               mx-auto
-              mt-12
+              mt-8
               max-w-2xl
+              px-2
               text-center
-              text-sm
+              text-xs
               leading-6
               text-slate-500
+
+              sm:mt-10
+              sm:text-sm
+
+              md:mt-12
+
               dark:text-gray-500
             "
           >

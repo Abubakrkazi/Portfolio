@@ -14,9 +14,16 @@
   --border: #e2e8f0;
 
   --primary: #8245ec;
+  --primary-hover: #7338df;
+
   --secondary: #06b6d4;
 
   --muted: #64748b;
+
+  --selection: #8245ec;
+  --selection-foreground: #ffffff;
+
+  color-scheme: light;
 }
 
 /* ===========================
@@ -33,41 +40,223 @@
   --border: rgba(255, 255, 255, 0.1);
 
   --primary: #8245ec;
+  --primary-hover: #9357f5;
+
   --secondary: #22d3ee;
 
   --muted: #94a3b8;
+
+  --selection: #8245ec;
+  --selection-foreground: #ffffff;
+
+  color-scheme: dark;
 }
 
 /* ===========================
    Base
 =========================== */
 
-* {
-  transition:
-    background-color .25s ease,
-    color .25s ease,
-    border-color .25s ease;
-}
-
 html {
   scroll-behavior: smooth;
+  background: var(--background);
 }
 
 body {
+  min-height: 100vh;
+  margin: 0;
   overflow-x: hidden;
+
   background: var(--background);
+  color: var(--foreground);
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevent media overflow */
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+/* ===========================
+   Theme Transitions
+=========================== */
+
+/*
+  Avoid applying transition to every CSS property
+  on every element. Only theme-related properties
+  transition when the theme changes.
+*/
+
+body,
+header,
+nav,
+main,
+section,
+article,
+aside,
+footer,
+div,
+button,
+a,
+input,
+textarea,
+select {
+  transition-property:
+    background-color,
+    border-color,
+    color,
+    fill,
+    stroke,
+    box-shadow;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
+}
+
+/* ===========================
+   Typography / Links
+=========================== */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ===========================
+   Form Controls
+=========================== */
+
+input,
+textarea,
+select {
   color: var(--foreground);
 }
 
-/* Selection */
-
-::selection {
-  background: #8245EC;
-  color: white;
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+  opacity: 0.75;
 }
 
-/* Glass */
+textarea {
+  resize: vertical;
+}
+
+/* ===========================
+   Selection
+=========================== */
+
+::selection {
+  background: var(--selection);
+  color: var(--selection-foreground);
+}
+
+/* ===========================
+   Focus Accessibility
+=========================== */
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+/* ===========================
+   Glass Effect
+=========================== */
 
 .glass {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--border);
+
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
+}
+
+.dark .glass {
+  background: rgba(8, 27, 41, 0.55);
+}
+
+/* ===========================
+   Scrollbar
+=========================== */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color:
+    rgba(130, 69, 236, 0.65)
+    transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(130, 69, 236, 0.55);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(130, 69, 236, 0.8);
+}
+
+/* ===========================
+   Utility Classes
+=========================== */
+
+.text-muted {
+  color: var(--muted);
+}
+
+.bg-card {
+  background: var(--card);
+}
+
+.text-card {
+  color: var(--card-foreground);
+}
+
+.border-theme {
+  border-color: var(--border);
+}
+
+/* ===========================
+   Reduced Motion
+=========================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

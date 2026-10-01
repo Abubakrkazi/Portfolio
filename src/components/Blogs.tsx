@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { CalendarDays, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, CalendarDays, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { AnimatedSection, Button, Container } from "./ui";
@@ -16,11 +15,10 @@ interface RSSItem {
   thumbnail?: string;
 }
 
-/*
-  Optional:
-  কোনো নির্দিষ্ট blog-এর জন্য নিজের local image ব্যবহার করতে চাইলে
-  এখানে title + image path দিতে পারো।
-*/
+/* =========================================================
+   OPTIONAL LOCAL BLOG IMAGES
+========================================================= */
+
 const blogImages: Record<string, string> = {
   "What Are AI Agents? A Complete Beginner’s Guide (2026)":
     "/images/blog-1.jpg",
@@ -29,7 +27,10 @@ const blogImages: Record<string, string> = {
     "/images/blog-2.jpg",
 };
 
-/* Extract first image from Medium article HTML */
+/* =========================================================
+   GET IMAGE FROM MEDIUM HTML
+========================================================= */
+
 function getImageFromHtml(html?: string) {
   if (!html) return "";
 
@@ -40,70 +41,222 @@ function getImageFromHtml(html?: string) {
   return match?.[1] || "";
 }
 
-/* Decide which image should be displayed */
+/* =========================================================
+   SELECT BLOG IMAGE
+========================================================= */
+
 function getBlogImage(item: RSSItem) {
-  // 1. Manually assigned local image
   if (blogImages[item.title]) {
     return blogImages[item.title];
   }
 
-  // 2. RSS thumbnail
   if (item.thumbnail) {
     return item.thumbnail;
   }
 
-  // 3. Image inside Medium content
   const contentImage = getImageFromHtml(item.content);
 
   if (contentImage) {
     return contentImage;
   }
 
-  // 4. Image inside description
   const descriptionImage = getImageFromHtml(item.description);
 
   if (descriptionImage) {
     return descriptionImage;
   }
 
-  // 5. Final fallback
   return "/images/blog-placeholder.jpg";
 }
 
-/* Remove HTML tags from Medium description */
+/* =========================================================
+   CLEAN MEDIUM DESCRIPTION
+========================================================= */
+
 function cleanDescription(html?: string) {
   if (!html) return "";
 
-  return html
-    .replace(/<[^>]+>/g, "")
+  const text = html
+    .replace(/<[^>]+>/g, " ")
     .replace(/&nbsp;/g, " ")
     .replace(/&amp;/g, "&")
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
-    .trim()
-    .slice(0, 140);
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (text.length <= 150) {
+    return text;
+  }
+
+  return `${text.slice(0, 150).trim()}...`;
 }
+
+/* =========================================================
+   FORMAT DATE
+========================================================= */
+
+function formatDate(date: string) {
+  const parsedDate = new Date(date);
+
+  if (Number.isNaN(parsedDate.getTime())) {
+    return "";
+  }
+
+  return parsedDate.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+/* =========================================================
+   LOADING SKELETON
+========================================================= */
+
+function BlogSkeleton() {
+  return (
+    <div
+      className="
+        overflow-hidden
+        rounded-2xl
+        border
+        border-slate-200
+        bg-slate-50
+        sm:rounded-3xl
+        dark:border-white/10
+        dark:bg-white/[0.04]
+      "
+    >
+      <div
+        className="
+          aspect-[16/9]
+          w-full
+          animate-pulse
+          bg-slate-200
+          dark:bg-white/10
+        "
+      />
+
+      <div className="p-5 sm:p-6 lg:p-7">
+        <div
+          className="
+            h-4
+            w-32
+            animate-pulse
+            rounded-full
+            bg-slate-200
+            dark:bg-white/10
+          "
+        />
+
+        <div
+          className="
+            mt-5
+            h-6
+            w-full
+            animate-pulse
+            rounded-lg
+            bg-slate-200
+            dark:bg-white/10
+          "
+        />
+
+        <div
+          className="
+            mt-3
+            h-6
+            w-3/4
+            animate-pulse
+            rounded-lg
+            bg-slate-200
+            dark:bg-white/10
+          "
+        />
+
+        <div className="mt-6 space-y-2">
+          <div
+            className="
+              h-3
+              w-full
+              animate-pulse
+              rounded-full
+              bg-slate-200
+              dark:bg-white/10
+            "
+          />
+
+          <div
+            className="
+              h-3
+              w-full
+              animate-pulse
+              rounded-full
+              bg-slate-200
+              dark:bg-white/10
+            "
+          />
+
+          <div
+            className="
+              h-3
+              w-2/3
+              animate-pulse
+              rounded-full
+              bg-slate-200
+              dark:bg-white/10
+            "
+          />
+        </div>
+
+        <div
+          className="
+            mt-7
+            h-12
+            w-full
+            animate-pulse
+            rounded-full
+            bg-slate-200
+            dark:bg-white/10
+          "
+        />
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================
+   BLOGS
+========================================================= */
 
 export default function Blogs() {
   const [posts, setPosts] = useState<RSSItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let active = true;
+
     async function fetchBlogs() {
       try {
-        const res = await fetch(
+        const response = await fetch(
           "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@kaziabubakr87"
         );
 
-        if (!res.ok) {
-          throw new Error(`Failed to fetch blogs: ${res.status}`);
+        if (!response.ok) {
+          throw new Error(
+            `Failed to fetch blogs: ${response.status}`
+          );
         }
 
-        const data = await res.json();
+        const data = await response.json();
 
-        if (!data.items || !Array.isArray(data.items)) {
+        if (!active) return;
+
+        if (!Array.isArray(data.items)) {
           console.warn(
-            "Medium feed is still being processed:",
+            "Medium feed is unavailable or still being processed:",
             data
           );
 
@@ -117,9 +270,11 @@ export default function Blogs() {
             link: item.link,
             pubDate: item.pubDate,
 
-            description: cleanDescription(
-              item.description || item.content
-            ),
+            description:
+              cleanDescription(
+                item.description || item.content
+              ) ||
+              "Read the full article on Medium.",
 
             thumbnail: getBlogImage(item),
           })
@@ -127,139 +282,431 @@ export default function Blogs() {
 
         setPosts(blogs);
       } catch (error) {
+        if (!active) return;
+
         console.error("BLOG FETCH ERROR:", error);
         setPosts([]);
       } finally {
-        setLoading(false);
+        if (active) {
+          setLoading(false);
+        }
       }
     }
 
     fetchBlogs();
+
+    return () => {
+      active = false;
+    };
   }, []);
 
   return (
     <section
       id="blogs"
       className="
+        relative
+        w-full
+        overflow-hidden
         bg-white
-        py-28
+        py-16
         text-slate-900
         transition-colors
         duration-300
+        sm:py-20
+        md:py-24
+        lg:py-28
         dark:bg-[#081b29]
         dark:text-white
       "
     >
+      {/* ================= BACKGROUND ================= */}
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          -left-40
+          top-20
+          h-80
+          w-80
+          rounded-full
+          bg-[#8245EC]/5
+          blur-[100px]
+          dark:bg-[#8245EC]/10
+        "
+      />
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          -right-40
+          bottom-20
+          h-80
+          w-80
+          rounded-full
+          bg-cyan-400/5
+          blur-[110px]
+        "
+      />
+
       <Container>
         <AnimatedSection>
-          {/* Heading */}
-          <div className="text-center">
-            <p className="font-semibold uppercase tracking-[6px] text-[#8245EC]">
+          {/* ================= HEADING ================= */}
+
+          <div
+            className="
+              relative
+              z-10
+              mx-auto
+              max-w-3xl
+              text-center
+            "
+          >
+            <p
+              className="
+                text-xs
+                font-semibold
+                uppercase
+                tracking-[4px]
+                text-[#8245EC]
+                sm:text-sm
+                sm:tracking-[6px]
+              "
+            >
               Blogs
             </p>
 
-            <h2 className="mt-4 text-4xl font-black text-slate-900 md:text-5xl dark:text-white">
+            <h2
+              className="
+                mt-3
+                text-3xl
+                font-black
+                tracking-tight
+                text-slate-900
+                sm:mt-4
+                sm:text-4xl
+                md:text-5xl
+                dark:text-white
+              "
+            >
               Latest Articles
             </h2>
 
-            <p className="mx-auto mt-6 max-w-2xl leading-8 text-slate-600 dark:text-gray-400">
+            <p
+              className="
+                mx-auto
+                mt-4
+                max-w-2xl
+                text-sm
+                leading-7
+                text-slate-600
+                sm:mt-6
+                sm:text-base
+                sm:leading-8
+                dark:text-gray-400
+              "
+            >
               A collection of technical articles where I share insights,
-              lessons, and ideas from my journey in software development.
+              lessons, and ideas from my journey in software development and
+              modern technology.
             </p>
           </div>
 
-          {/* Loading */}
+          {/* ================= LOADING ================= */}
+
           {loading && (
-            <div className="mt-20 text-center text-slate-500 dark:text-gray-400">
-              Loading latest blogs...
+            <div
+              className="
+                relative
+                z-10
+                mt-10
+                grid
+                grid-cols-1
+                gap-5
+                sm:mt-14
+                sm:gap-6
+                md:mt-16
+                md:grid-cols-2
+                lg:gap-7
+                xl:mt-20
+                xl:grid-cols-3
+              "
+            >
+              {Array.from({ length: 3 }).map((_, index) => (
+                <BlogSkeleton key={index} />
+              ))}
             </div>
           )}
 
-          {/* Empty */}
+          {/* ================= EMPTY ================= */}
+
           {!loading && posts.length === 0 && (
-            <div className="mt-20 text-center text-slate-500 dark:text-gray-400">
-              No articles found right now.
-            </div>
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              className="
+                relative
+                z-10
+                mx-auto
+                mt-12
+                max-w-xl
+                rounded-2xl
+                border
+                border-slate-200
+                bg-slate-50
+                px-5
+                py-10
+                text-center
+                sm:mt-16
+                sm:rounded-3xl
+                sm:px-8
+                sm:py-12
+                dark:border-white/10
+                dark:bg-white/[0.04]
+              "
+            >
+              <div
+                className="
+                  mx-auto
+                  flex
+                  h-14
+                  w-14
+                  items-center
+                  justify-center
+                  rounded-2xl
+                  bg-[#8245EC]/10
+                  text-[#8245EC]
+                "
+              >
+                <FileText size={26} />
+              </div>
+
+              <h3
+                className="
+                  mt-5
+                  text-lg
+                  font-bold
+                  text-slate-900
+                  sm:text-xl
+                  dark:text-white
+                "
+              >
+                Articles are unavailable right now
+              </h3>
+
+              <p
+                className="
+                  mx-auto
+                  mt-3
+                  max-w-md
+                  text-sm
+                  leading-6
+                  text-slate-500
+                  sm:text-base
+                  dark:text-gray-400
+                "
+              >
+                My latest Medium articles could not be loaded. Please check
+                back again shortly.
+              </p>
+            </motion.div>
           )}
 
-          {/* Blog Grid */}
+          {/* ================= BLOG GRID ================= */}
+
           {!loading && posts.length > 0 && (
-            <div className="mt-20 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+            <div
+              className="
+                relative
+                z-10
+                mt-10
+                grid
+                grid-cols-1
+                items-stretch
+                gap-5
+                sm:mt-14
+                sm:gap-6
+                md:mt-16
+                md:grid-cols-2
+                lg:gap-7
+                xl:mt-20
+                xl:grid-cols-3
+              "
+            >
               {posts.map((post, index) => (
                 <motion.article
                   key={post.link}
                   initial={{
                     opacity: 0,
-                    y: 40,
+                    y: 30,
                   }}
                   whileInView={{
                     opacity: 1,
                     y: 0,
                   }}
-                  transition={{
-                    duration: 0.5,
-                    delay: index * 0.12,
-                  }}
                   viewport={{
                     once: true,
+                    amount: 0.1,
+                  }}
+                  transition={{
+                    duration: 0.45,
+                    delay: Math.min(index * 0.07, 0.3),
+                  }}
+                  whileHover={{
+                    y: -7,
                   }}
                   className="
                     group
+                    flex
+                    min-w-0
+                    flex-col
                     overflow-hidden
-                    rounded-3xl
+                    rounded-2xl
                     border
                     border-slate-200
                     bg-slate-50
                     shadow-sm
-                    backdrop-blur-xl
                     transition-all
                     duration-300
-                    hover:-translate-y-3
-                    hover:border-[#8245EC]
-                    hover:shadow-[0_0_40px_rgba(130,69,236,.18)]
+
+                    hover:border-[#8245EC]/70
+                    hover:shadow-[0_20px_50px_rgba(130,69,236,0.12)]
+
+                    sm:rounded-3xl
+
                     dark:border-white/10
-                    dark:bg-white/5
+                    dark:bg-white/[0.04]
                     dark:shadow-none
-                    dark:hover:shadow-[0_0_40px_rgba(130,69,236,.35)]
+                    dark:hover:border-[#8245EC]/70
+                    dark:hover:bg-white/[0.055]
+                    dark:hover:shadow-[0_20px_50px_rgba(130,69,236,0.18)]
                   "
                 >
-                  {/* Blog Image */}
-                  <div className="relative h-60 w-full overflow-hidden">
+                  {/* ================= IMAGE ================= */}
+
+                  <a
+                    href={post.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Read ${post.title} on Medium`}
+                    className="
+                      relative
+                      block
+                      aspect-[16/9]
+                      w-full
+                      shrink-0
+                      overflow-hidden
+                      bg-slate-200
+                      dark:bg-white/10
+                    "
+                  >
                     <img
-                      src={post.thumbnail}
+                      src={
+                        post.thumbnail ||
+                        "/images/blog-placeholder.jpg"
+                      }
                       alt={post.title}
                       loading="lazy"
-                      onError={(e) => {
-                        e.currentTarget.src =
-                          "/images/blog-placeholder.jpg";
+                      onError={(event) => {
+                        const image = event.currentTarget;
+
+                        if (
+                          !image.src.endsWith(
+                            "/images/blog-placeholder.jpg"
+                          )
+                        ) {
+                          image.src =
+                            "/images/blog-placeholder.jpg";
+                        }
                       }}
                       className="
                         h-full
                         w-full
                         object-cover
                         transition-transform
-                        duration-500
-                        group-hover:scale-110
+                        duration-700
+                        ease-out
+                        group-hover:scale-105
                       "
                     />
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  </div>
+                    {/* Overlay */}
+                    <div
+                      className="
+                        pointer-events-none
+                        absolute
+                        inset-0
+                        bg-gradient-to-t
+                        from-black/45
+                        via-black/5
+                        to-transparent
+                      "
+                    />
 
-                  {/* Content */}
-                  <div className="p-7">
+                    {/* Medium Badge */}
+                    <span
+                      className="
+                        absolute
+                        left-4
+                        top-4
+                        rounded-full
+                        border
+                        border-white/20
+                        bg-black/40
+                        px-3
+                        py-1.5
+                        text-[10px]
+                        font-semibold
+                        uppercase
+                        tracking-[0.15em]
+                        text-white
+                        backdrop-blur-md
+                        sm:text-xs
+                      "
+                    >
+                      Medium
+                    </span>
+                  </a>
+
+                  {/* ================= CONTENT ================= */}
+
+                  <div
+                    className="
+                      flex
+                      flex-1
+                      flex-col
+                      p-5
+                      sm:p-6
+                      lg:p-7
+                    "
+                  >
                     {/* Date */}
-                    <div className="flex items-center gap-2 text-sm font-medium text-[#8245EC]">
-                      <CalendarDays size={16} />
+                    <div
+                      className="
+                        flex
+                        items-center
+                        gap-2
+                        text-xs
+                        font-semibold
+                        text-[#8245EC]
+                        sm:text-sm
+                      "
+                    >
+                      <CalendarDays
+                        size={15}
+                        className="shrink-0"
+                      />
 
-                      {new Date(post.pubDate).toLocaleDateString(
-                        "en-US",
-                        {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        }
-                      )}
+                      <span>
+                        {formatDate(post.pubDate)}
+                      </span>
                     </div>
 
                     {/* Title */}
@@ -267,12 +714,17 @@ export default function Blogs() {
                       className="
                         mt-4
                         line-clamp-2
-                        text-2xl
+                        text-xl
                         font-bold
+                        leading-snug
                         text-slate-900
                         transition-colors
                         duration-300
+
                         group-hover:text-[#8245EC]
+
+                        sm:text-2xl
+
                         dark:text-white
                       "
                     >
@@ -280,22 +732,47 @@ export default function Blogs() {
                     </h3>
 
                     {/* Description */}
-                    <p className="mt-4 line-clamp-3 leading-7 text-slate-600 dark:text-gray-400">
+                    <p
+                      className="
+                        mt-3
+                        line-clamp-3
+                        flex-1
+                        text-sm
+                        leading-7
+                        text-slate-600
+                        sm:mt-4
+                        sm:text-[15px]
+                        dark:text-gray-400
+                      "
+                    >
                       {post.description}
                     </p>
 
                     {/* Button */}
-                    <Link
+                    <a
                       href={post.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block"
+                      className="
+                        mt-6
+                        block
+                        w-full
+                        sm:mt-7
+                      "
                     >
-                      <Button className="mt-8 w-full justify-center gap-2">
+                      <Button
+                        className="
+                          flex
+                          w-full
+                          items-center
+                          justify-center
+                          gap-2
+                        "
+                      >
                         Read on Medium
-                        <ArrowUpRight size={18} />
+                        <ArrowUpRight size={17} />
                       </Button>
-                    </Link>
+                    </a>
                   </div>
                 </motion.article>
               ))}

@@ -2,9 +2,14 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Github, ExternalLink } from "lucide-react";
+import {
+  ArrowUpRight,
+  ExternalLink,
+  Github,
+  Sparkles,
+} from "lucide-react";
 
-import { AnimatedSection, Button, Container } from "./ui";
+import { AnimatedSection, Container } from "./ui";
 
 export const projects = [
   {
@@ -23,7 +28,6 @@ export const projects = [
     githubUrl: "https://github.com/Abubakrkazi/KrishiBazar",
     featured: true,
   },
-
   {
     title: "Vehicle Rental System",
     image: "/images/projects/vehicle.png",
@@ -40,7 +44,6 @@ export const projects = [
     githubUrl: "https://github.com/Abubakrkazi/vehicle_rental",
     featured: false,
   },
-
   {
     title: "Wall of Humanity",
     image: "/images/projects/wall-of-humanity.png",
@@ -63,259 +66,615 @@ export default function Projects() {
     <section
       id="projects"
       className="
+        relative
+        w-full
+        overflow-hidden
         bg-white
-        py-28
+        py-16
         text-slate-900
         transition-colors
         duration-300
+
+        sm:py-20
+        md:py-24
+        lg:py-28
+
         dark:bg-[#081b29]
         dark:text-white
       "
     >
+      {/* ================= BACKGROUND GLOWS ================= */}
+
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          -left-40
+          top-16
+          h-80
+          w-80
+          rounded-full
+          bg-[#8245EC]/5
+          blur-[110px]
+
+          dark:bg-[#8245EC]/10
+        "
+      />
+
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          -right-40
+          bottom-20
+          h-80
+          w-80
+          rounded-full
+          bg-cyan-400/5
+          blur-[110px]
+        "
+      />
+
       <Container>
         <AnimatedSection>
-          {/* Heading */}
-          <div className="text-center">
-            <p className="font-semibold uppercase tracking-[6px] text-[#8245EC]">
+          {/* ================= HEADING ================= */}
+
+          <div
+            className="
+              relative
+              z-10
+              mx-auto
+              max-w-3xl
+              text-center
+            "
+          >
+            <p
+              className="
+                text-xs
+                font-semibold
+                uppercase
+                tracking-[4px]
+                text-[#8245EC]
+
+                sm:text-sm
+                sm:tracking-[6px]
+              "
+            >
               My Projects
             </p>
 
-            <h2 className="mt-4 text-4xl font-black text-slate-900 md:text-5xl dark:text-white">
+            <h2
+              className="
+                mt-3
+                text-3xl
+                font-black
+                tracking-tight
+                text-slate-900
+
+                sm:mt-4
+                sm:text-4xl
+
+                md:text-5xl
+
+                dark:text-white
+              "
+            >
               Featured Projects
             </h2>
 
-            <p className="mx-auto mt-6 max-w-2xl leading-8 text-slate-600 dark:text-gray-400">
+            <p
+              className="
+                mx-auto
+                mt-4
+                max-w-2xl
+                text-sm
+                leading-7
+                text-slate-600
+
+                sm:mt-6
+                sm:text-base
+                sm:leading-8
+
+                dark:text-gray-400
+              "
+            >
               A selection of projects that demonstrate my technical skills,
               problem-solving abilities, and experience building modern,
-              scalable web applications.
+              practical web applications.
             </p>
           </div>
 
-          {/* Project Cards */}
-          <div className="mt-20 grid gap-10 lg:grid-cols-3">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.title}
-                initial={{
-                  opacity: 0,
-                  y: 40,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                viewport={{
-                  once: true,
-                }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.15,
-                }}
-                whileHover={{
-                  y: -10,
-                }}
-                className="
-                  group
-                  flex
-                  h-full
-                  flex-col
-                  overflow-hidden
-                  rounded-3xl
-                  border
-                  border-slate-200
-                  bg-slate-50
-                  shadow-sm
-                  backdrop-blur-xl
-                  transition-all
-                  duration-300
-                  hover:border-[#8245EC]
-                  hover:shadow-[0_0_40px_rgba(130,69,236,.20)]
-                  dark:border-white/10
-                  dark:bg-white/5
-                  dark:shadow-none
-                  dark:hover:shadow-[0_0_40px_rgba(130,69,236,.35)]
-                "
-              >
-                {/* Project Image */}
-                <div className="relative h-60 w-full overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 33vw"
+          {/* ================= PROJECT GRID ================= */}
+
+          <div
+            className="
+              relative
+              z-10
+              mt-10
+              grid
+              w-full
+              grid-cols-1
+              gap-5
+
+              sm:mt-14
+              sm:gap-6
+
+              md:mt-16
+              md:grid-cols-2
+
+              xl:mt-20
+              xl:grid-cols-3
+              xl:gap-7
+            "
+          >
+            {projects.map((project, index) => {
+              const hasLiveDemo =
+                Boolean(project.liveUrl) &&
+                project.liveUrl !== "#";
+
+              return (
+                <motion.article
+                  key={project.title}
+                  initial={{
+                    opacity: 0,
+                    y: 30,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  viewport={{
+                    once: true,
+                    amount: 0.15,
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    delay: Math.min(index * 0.1, 0.25),
+                    ease: "easeOut",
+                  }}
+                  whileHover={{
+                    y: -6,
+                  }}
+                  className="
+                    group
+                    flex
+                    min-w-0
+                    flex-col
+                    overflow-hidden
+                    rounded-2xl
+                    border
+                    border-slate-200
+                    bg-slate-50/80
+                    shadow-sm
+                    transition-all
+                    duration-300
+
+                    hover:border-[#8245EC]/60
+                    hover:shadow-[0_18px_45px_rgba(130,69,236,0.12)]
+
+                    sm:rounded-3xl
+
+                    dark:border-white/10
+                    dark:bg-white/[0.04]
+                    dark:shadow-none
+                    dark:hover:border-[#8245EC]/70
+                    dark:hover:bg-white/[0.055]
+                    dark:hover:shadow-[0_18px_45px_rgba(130,69,236,0.16)]
+                  "
+                >
+                  {/* ================= IMAGE ================= */}
+
+                  <div
                     className="
-                      object-cover
-                      transition-transform
-                      duration-500
-                      group-hover:scale-110
-                    "
-                  />
+                      relative
+                      aspect-[16/10]
+                      w-full
+                      overflow-hidden
+                      bg-slate-200
 
-                  {/* Image Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-
-                  {/* Featured Badge */}
-                  {project.featured && (
-                    <span
-                      className="
-                        absolute
-                        left-5
-                        top-5
-                        rounded-full
-                        bg-[#8245EC]
-                        px-4
-                        py-2
-                        text-xs
-                        font-semibold
-                        uppercase
-                        tracking-wider
-                        text-white
-                        shadow-lg
-                      "
-                    >
-                      Featured
-                    </span>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="flex flex-1 flex-col p-8">
-                  {/* Title */}
-                  <h3
-                    className="
-                      text-2xl
-                      font-bold
-                      text-slate-900
-                      transition-colors
-                      duration-300
-                      group-hover:text-[#8245EC]
-                      dark:text-white
+                      dark:bg-white/[0.04]
                     "
                   >
-                    {project.title}
-                  </h3>
+                    <Image
+                      src={project.image}
+                      alt={`${project.title} project preview`}
+                      fill
+                      sizes="
+                        (max-width: 767px) 100vw,
+                        (max-width: 1279px) 50vw,
+                        33vw
+                      "
+                      className="
+                        object-cover
+                        transition-transform
+                        duration-700
+                        ease-out
 
-                  {/* Description */}
-                  <p className="mt-5 leading-8 text-slate-600 dark:text-gray-400">
-                    {project.description}
-                  </p>
+                        group-hover:scale-[1.05]
+                      "
+                    />
 
-                  {/* Technologies */}
-                  <div className="mt-6 flex flex-wrap gap-3">
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
+                    {/* Overlay */}
+
+                    <div
+                      className="
+                        pointer-events-none
+                        absolute
+                        inset-0
+                        bg-gradient-to-t
+                        from-black/55
+                        via-black/[0.04]
+                        to-transparent
+                      "
+                    />
+
+                    {/* Featured Badge */}
+
+                    {project.featured && (
+                      <div
                         className="
+                          absolute
+                          left-3
+                          top-3
+                          inline-flex
+                          items-center
+                          gap-1.5
                           rounded-full
                           border
-                          border-[#8245EC]/20
-                          bg-[#8245EC]/10
-                          px-4
-                          py-2
-                          text-sm
-                          font-medium
-                          text-[#8245EC]
-                          transition-all
-                          duration-300
-                          hover:border-[#8245EC]/50
-                          hover:bg-[#8245EC]/20
-                          dark:bg-[#8245EC]/20
-                          dark:text-[#d9c4ff]
+                          border-white/15
+                          bg-[#8245EC]
+                          px-3
+                          py-1.5
+                          text-[10px]
+                          font-bold
+                          uppercase
+                          tracking-[0.12em]
+                          text-white
+                          shadow-lg
+
+                          sm:left-4
+                          sm:top-4
+                          sm:text-xs
                         "
                       >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Buttons */}
-                  <div className="mt-auto flex gap-4 pt-8">
-                    {/* Live Demo */}
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1"
-                    >
-                      <Button
-                        className="
-                          group/live
-                          w-full
-                          justify-center
-                          gap-2
-                          font-semibold
-                          transition-all
-                          duration-300
-                          hover:shadow-[0_0_25px_rgba(130,69,236,0.45)]
-                          active:scale-95
-                        "
-                      >
-                        Live Demo
-
-                        <ExternalLink
-                          size={9}
-                          className="
-                            transition-transform
-                            duration-300
-                            group-hover/live:-translate-y-0.5
-                            group-hover/live:translate-x-0.5
-                          "
+                        <Sparkles
+                          size={12}
+                          className="shrink-0"
                         />
-                      </Button>
-                    </a>
 
-                    {/* GitHub */}
+                        Featured
+                      </div>
+                    )}
+
+                    {/* GitHub Corner Link */}
+
                     <a
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1"
+                      aria-label={`Open ${project.title} GitHub repository`}
+                      className="
+                        absolute
+                        right-3
+                        top-3
+                        flex
+                        h-9
+                        w-9
+                        items-center
+                        justify-center
+                        rounded-full
+                        border
+                        border-white/20
+                        bg-black/35
+                        text-white
+                        backdrop-blur-md
+                        transition-all
+                        duration-300
+
+                        hover:border-[#8245EC]
+                        hover:bg-[#8245EC]
+
+                        sm:right-4
+                        sm:top-4
+                        sm:h-10
+                        sm:w-10
+                      "
                     >
-                      <Button
+                      <Github size={17} />
+                    </a>
+                  </div>
+
+                  {/* ================= CONTENT ================= */}
+
+                  <div
+                    className="
+                      flex
+                      min-w-0
+                      flex-1
+                      flex-col
+                      p-4
+
+                      sm:p-6
+
+                      lg:p-7
+                    "
+                  >
+                    {/* Number + Title */}
+
+                    <div
+                      className="
+                        flex
+                        min-w-0
+                        items-start
+                        justify-between
+                        gap-3
+                      "
+                    >
+                      <h3
+                        className="
+                          min-w-0
+                          break-words
+                          text-xl
+                          font-bold
+                          leading-snug
+                          text-slate-900
+                          transition-colors
+                          duration-300
+
+                          group-hover:text-[#8245EC]
+
+                          sm:text-2xl
+
+                          dark:text-white
+                        "
+                      >
+                        {project.title}
+                      </h3>
+
+                      <span
+                        className="
+                          shrink-0
+                          text-sm
+                          font-bold
+                          text-slate-300
+
+                          dark:text-white/10
+                        "
+                      >
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+
+                    {/* Description */}
+
+                    <p
+                      className="
+                        mt-3
+                        text-sm
+                        leading-7
+                        text-slate-600
+
+                        sm:mt-4
+                        sm:text-[15px]
+
+                        lg:text-base
+                        lg:leading-8
+
+                        dark:text-gray-400
+                      "
+                    >
+                      {project.description}
+                    </p>
+
+                    {/* ================= TECHNOLOGIES ================= */}
+
+                    <div
+                      className="
+                        mt-5
+                        flex
+                        flex-wrap
+                        gap-2
+
+                        sm:mt-6
+                      "
+                    >
+                      {project.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="
+                            rounded-full
+                            border
+                            border-[#8245EC]/20
+                            bg-[#8245EC]/[0.07]
+                            px-2.5
+                            py-1.5
+                            text-[10px]
+                            font-medium
+                            text-[#8245EC]
+                            transition-all
+                            duration-300
+
+                            hover:border-[#8245EC]/50
+                            hover:bg-[#8245EC]/15
+
+                            min-[375px]:text-[11px]
+
+                            sm:px-3
+                            sm:text-xs
+
+                            dark:bg-[#8245EC]/15
+                            dark:text-[#d9c4ff]
+                          "
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* ================= BUTTONS ================= */}
+
+                    <div
+                      className="
+                        mt-auto
+                        grid
+                        grid-cols-1
+                        gap-3
+                        pt-6
+
+                        min-[420px]:grid-cols-2
+
+                        sm:pt-7
+                      "
+                    >
+                      {/* Live Demo */}
+
+                      {hasLiveDemo ? (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Open ${project.title} live demo`}
+                          className="
+                            group/live
+                            inline-flex
+                            min-h-11
+                            w-full
+                            items-center
+                            justify-center
+                            gap-2
+                            rounded-full
+                            bg-[#8245EC]
+                            px-4
+                            py-3
+                            text-sm
+                            font-semibold
+                            text-white
+                            shadow-[0_8px_22px_rgba(130,69,236,0.22)]
+                            transition-all
+                            duration-300
+
+                            hover:-translate-y-0.5
+                            hover:bg-[#7138d8]
+                            hover:shadow-[0_12px_28px_rgba(130,69,236,0.32)]
+                          "
+                        >
+                          Live Demo
+
+                          <ExternalLink
+                            size={16}
+                            className="
+                              shrink-0
+                              transition-transform
+                              duration-300
+
+                              group-hover/live:-translate-y-0.5
+                              group-hover/live:translate-x-0.5
+                            "
+                          />
+                        </a>
+                      ) : (
+                        <div
+                          aria-disabled="true"
+                          className="
+                            inline-flex
+                            min-h-11
+                            w-full
+                            cursor-not-allowed
+                            items-center
+                            justify-center
+                            gap-2
+                            rounded-full
+                            border
+                            border-slate-200
+                            bg-slate-100
+                            px-4
+                            py-3
+                            text-sm
+                            font-semibold
+                            text-slate-400
+
+                            dark:border-white/10
+                            dark:bg-white/[0.04]
+                            dark:text-gray-500
+                          "
+                        >
+                          Demo Soon
+
+                          <ExternalLink
+                            size={15}
+                            className="shrink-0"
+                          />
+                        </div>
+                      )}
+
+                      {/* GitHub */}
+
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Open ${project.title} GitHub repository`}
                         className="
                           group/github
+                          inline-flex
+                          min-h-11
                           w-full
+                          items-center
                           justify-center
                           gap-2
+                          rounded-full
                           border
                           border-[#8245EC]
                           bg-transparent
+                          px-4
+                          py-3
+                          text-sm
                           font-semibold
                           text-[#8245EC]
                           transition-all
                           duration-300
 
-                          hover:border-[#8245EC]
+                          hover:-translate-y-0.5
                           hover:bg-[#8245EC]
                           hover:text-white
-                          hover:shadow-[0_0_25px_rgba(130,69,236,0.55)]
+                          hover:shadow-[0_10px_25px_rgba(130,69,236,0.25)]
 
-                          dark:border-[#8245EC]
-                          dark:bg-transparent
                           dark:text-white
-                          dark:hover:bg-[#8245EC]
-                          dark:hover:text-white
-
-                          active:scale-95
                         "
                       >
                         <Github
-                          size={8}
+                          size={16}
                           className="
+                            shrink-0
                             transition-transform
                             duration-300
+
                             group-hover/github:rotate-6
                             group-hover/github:scale-110
                           "
                         />
 
                         GitHub
-                      </Button>
-                    </a>
+
+                        <ArrowUpRight
+                          size={15}
+                          className="
+                            shrink-0
+                            transition-transform
+                            duration-300
+
+                            group-hover/github:-translate-y-0.5
+                            group-hover/github:translate-x-0.5
+                          "
+                        />
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.article>
+              );
+            })}
           </div>
         </AnimatedSection>
       </Container>

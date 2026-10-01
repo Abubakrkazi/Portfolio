@@ -1,30 +1,68 @@
-interface TextareaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+import type { TextareaHTMLAttributes } from "react";
+
+type TextareaProps =
+  TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 export default function Textarea({
   className = "",
+  disabled,
+  rows = 5,
   ...props
 }: TextareaProps) {
   return (
     <textarea
       {...props}
+      rows={rows}
+      disabled={disabled}
       className={`
-      w-full
-      rounded-2xl
-      border
-      border-white/10
-      bg-white/5
-      px-5
-      py-4
-      text-white
-      outline-none
-      resize-none
-      transition-all
-      placeholder:text-gray-400
-      focus:border-[#8245EC]
-      focus:ring-2
-      focus:ring-[#8245EC]/30
-      ${className}
+        w-full
+        min-w-0
+        resize-none
+        rounded-xl
+        border
+        border-slate-200
+        bg-white
+        px-4
+        py-3
+        text-sm
+        leading-6
+        text-slate-900
+        outline-none
+        transition-all
+        duration-300
+
+        placeholder:text-slate-400
+
+        hover:border-slate-300
+
+        focus:border-[#8245EC]
+        focus:ring-2
+        focus:ring-[#8245EC]/20
+
+        disabled:cursor-not-allowed
+        disabled:bg-slate-100
+        disabled:opacity-60
+
+        sm:rounded-2xl
+        sm:px-5
+        sm:py-4
+        sm:text-base
+        sm:leading-7
+
+        dark:border-white/10
+        dark:bg-white/[0.04]
+        dark:text-white
+        dark:placeholder:text-gray-500
+
+        dark:hover:border-white/20
+
+        dark:focus:border-[#8245EC]
+        dark:focus:bg-white/[0.055]
+        dark:focus:ring-[#8245EC]/30
+
+        dark:disabled:bg-white/[0.03]
+
+        ${className}
       `}
     />
   );
