@@ -479,38 +479,38 @@ export default function Hero() {
               >
                 {/* Resume */}
 
-                <Link
-                  href="/Resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full"
-                >
-                  <Button
-                    className="
-                      group
-                      flex
-                      w-full
-                      items-center
-                      justify-center
-                      gap-2
-                      px-4
+<a
+  href="/Resume.pdf"
+  download="Abubakr_Kazi_(Jr.Software Developer).pdf"
+  className="block w-full"
+>
+  <Button
+    type="button"
+    className="
+      group
+      flex
+      w-full
+      items-center
+      justify-center
+      gap-2
+      px-4
+      sm:px-5
+    "
+  >
+    <Download
+      size={18}
+      className="
+        shrink-0
+        transition-transform
+        duration-300
+        group-hover:-translate-y-0.5
+      "
+    />
 
-                      sm:px-5
-                    "
-                  >
-                    <Download
-                      size={18}
-                      className="
-                        shrink-0
-                        transition-transform
-                        duration-300
-                        group-hover:-translate-y-0.5
-                      "
-                    />
+    <span>Download Resume</span>
+  </Button>
+</a>
 
-                    <span>Download Resume</span>
-                  </Button>
-                </Link>
 
                 {/* Hire Me */}
 
