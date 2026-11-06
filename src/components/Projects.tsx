@@ -59,6 +59,41 @@ export const projects = [
     githubUrl: "https://github.com/Abubakrkazi/Wall-of-Humanity",
     featured: false,
   },
+  {
+  title: "PharmaFlow",
+  image: "/images/projects/pharmaflow.png",
+  description:
+    "A multi-tenant pharmacy management SaaS platform featuring inventory management, POS and billing, sales analytics, purchasing, supplier management, and branch operations.",
+  technologies: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "NestJS",
+    "PostgreSQL",
+    "Prisma ORM",
+    "Tailwind CSS",
+  ],
+  liveUrl: "#",
+  githubUrl: "https://github.com/Abubakrkazi/PharmaFlow.git",
+  featured: true,
+},
+{
+  title: "Private Chat App",
+  image: "/images/projects/private-chat.png",
+  description:
+    "A private real-time messaging application with secure authentication, instant messaging, image sharing, audio calls, and video calls.",
+  technologies: [
+    "Next.js",
+    "TypeScript",
+    "Node.js",
+    "Express.js",
+    "Socket.IO",
+    "Tailwind CSS",
+  ],
+  liveUrl: "#",
+  githubUrl: "https://github.com/Abubakrkazi/private_chat_app.git",
+  featured: false,
+},
 ];
 
 export default function Projects() {
