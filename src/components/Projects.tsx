@@ -61,7 +61,7 @@ export const projects = [
   },
   {
   title: "PharmaFlow",
-  image: "/images/projects/pharmaflow.png",
+  image: "/images/projects/Pharmaflow.png",
   description:
     "A multi-tenant pharmacy management SaaS platform featuring inventory management, POS and billing, sales analytics, purchasing, supplier management, and branch operations.",
   technologies: [

@@ -479,8 +479,8 @@ export default function Hero() {
                 {/* Resume */}
 
 <a
-  href="/Resume.pdf"
-  download="Abubakr_Kazi_(Jr.Software Developer).pdf"
+  href="/resume.pdf"
+download="Abubakr_Kazi_Jr_Software_Developer.pdf"
   className="group flex w-full items-center justify-center gap-2 rounded-lg bg-[#8245EC] px-4 py-3 text-white transition hover:bg-[#7135d8] sm:px-5"
 >
   <Download
