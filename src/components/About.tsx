@@ -14,31 +14,30 @@ import { AnimatedSection, Container, Button } from "./ui";
 
 const highlights = [
   {
-    title: "Frontend Development",
+    title: "Frontend Engineering",
     description:
-      "Building responsive, accessible, and user-friendly web applications with React, Next.js, TypeScript, and Tailwind CSS.",
+      "Crafting modern, responsive, and intuitive web experiences using React.js, Next.js, TypeScript, and Tailwind CSS, with a strong focus on performance, usability, and clean UI architecture.",
     icon: Code2,
   },
   {
-    title: "Problem Solving",
+    title: "Problem Solving & Development",
     description:
-      "Turning technical and real-world problems into clean, maintainable, and practical software solutions.",
+      "Applying analytical thinking and structured problem-solving to transform complex requirements into efficient, scalable, and maintainable software solutions.",
     icon: Lightbulb,
   },
   {
-    title: "Continuous Learning",
+    title: "Technology & Growth",
     description:
-      "Expanding my backend skills with Node.js, Express, databases, APIs, authentication, and modern development practices.",
+      "Continuously strengthening my development expertise by exploring Node.js, Express.js, REST APIs, database management, authentication, and modern software engineering practices.",
     icon: Rocket,
   },
   {
-    title: "Career Goal",
+    title: "Professional Vision",
     description:
-      "Growing toward full-stack development and building impactful digital products that solve meaningful real-world problems.",
+      "Aspiring to become a skilled Full-Stack Developer by building impactful digital products, collaborating with talented teams, and solving real-world challenges through technology.",
     icon: Target,
   },
 ];
-
 export default function About() {
   return (
     <section
