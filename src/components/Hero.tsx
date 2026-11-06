@@ -345,16 +345,15 @@ export default function Hero() {
                 "
               >
                 <TypeAnimation
-                  sequence={[
-                    "React.js Developer",
-                    2000,
-                    "Frontend Developer",
-                    2000,
-                    "Next.js Developer",
-                    2000,
-                    "Aspiring Full Stack Developer",
-                    2000,
-                  ]}
+                 sequence={[
+  2000,
+  "Frontend Developer",
+  2000,
+  "Software Developer",
+  2000,
+  "Aspiring Full Stack Developer",
+  2000,
+]}
                   wrapper="span"
                   speed={40}
                   repeat={Infinity}
@@ -482,18 +481,13 @@ export default function Hero() {
 <a
   href="/Resume.pdf"
   download="Abubakr_Kazi_(Jr.Software Developer).pdf"
-  className="block w-full"
+  className="group flex w-full items-center justify-center gap-2 rounded-lg bg-[#8245EC] px-4 py-3 text-white transition hover:bg-[#7135d8] sm:px-5"
 >
-  <button
-    type="button"
-    className="group flex w-full items-center justify-center gap-2 rounded-lg bg-[#8245EC] px-4 py-3 text-white transition hover:bg-[#7135d8] sm:px-5"
-  >
-    <Download
-      size={18}
-      className="shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5"
-    />
-    <span>Download Resume</span>
-  </button>
+  <Download
+    size={18}
+    className="shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5"
+  />
+  <span>Download Resume</span>
 </a>
 
 
