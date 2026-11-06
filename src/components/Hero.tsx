@@ -484,31 +484,16 @@ export default function Hero() {
   download="Abubakr_Kazi_(Jr.Software Developer).pdf"
   className="block w-full"
 >
-  <Button
+  <button
     type="button"
-    className="
-      group
-      flex
-      w-full
-      items-center
-      justify-center
-      gap-2
-      px-4
-      sm:px-5
-    "
+    className="group flex w-full items-center justify-center gap-2 rounded-lg bg-[#8245EC] px-4 py-3 text-white transition hover:bg-[#7135d8] sm:px-5"
   >
     <Download
       size={18}
-      className="
-        shrink-0
-        transition-transform
-        duration-300
-        group-hover:-translate-y-0.5
-      "
+      className="shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5"
     />
-
     <span>Download Resume</span>
-  </Button>
+  </button>
 </a>
 
 
